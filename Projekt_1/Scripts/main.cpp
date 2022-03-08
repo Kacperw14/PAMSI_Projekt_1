@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include<map>
+#include<string>
 #include "../Headers/Map.h"
 
 using namespace std;
@@ -11,11 +12,6 @@ int main()
 		{'d', 2}
 	};
 
-	Map mapa;
-	Map mapa1 = Map('r', 1);
-	Map mapa2 = Map('k', 2);
-	mapa2.Add(mapa1);
-	cout<<mapa2[2]<<endl << mapa2.GetChild()->operator[](1)<<endl;
-
+	//Map<string> mapa1('l', 0);
 
 }//MAIN

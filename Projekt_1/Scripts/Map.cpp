@@ -7,21 +7,31 @@
 //	next = nullptr;
 //}
 
-Map::Map(char _letter, int _id)
-{
-	letter = _letter;
+//Map::Map(char _letter, int _id)
+//{
+//	letter = _letter;
+//
+//	if (_id >= 0)
+//	{
+//		id = _id;
+//	}
+//	else
+//	{
+//		throw "Dopuszczalne jedynie liczby naturalne";
+//	}
+//
+//	child = nullptr;
+//}
 
-	if (_id >= 0)
-	{
-		id = _id;
-	}
-	else
-	{
-		throw "Dopuszczalne jedynie liczby naturalne";
-	}
+//template<char T>
+//Map<T>::Map(T _message)
+//{
+//	message = _message;
+//
+//	parent = this;
+//	child = nullptr;
+//}
 
-	child = nullptr;
-}
 
 const int& Map::Size() const
 {
@@ -32,7 +42,7 @@ const char& Map::operator[](int index) const
 {
 	if (index == id)
 	{
-		return letter;
+		return message;
 	}
 	else
 	{
