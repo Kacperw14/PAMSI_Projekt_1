@@ -37,12 +37,12 @@ public:
 	Map* GetPrevious() const { return previous; };
 
 	void SetNext(Map* newMap) { next = newMap; };
-	void SetPrevious(Map* newMap) { next = newMap; };
+	void SetPrevious(Map* newMap) { previous = newMap; };
 
 	void Add(Map* newMap)
 	{
 		next = newMap;
-		newMap->SetPrevious(next);
+		newMap->SetPrevious(this);
 	};
 
 }; //CLASS

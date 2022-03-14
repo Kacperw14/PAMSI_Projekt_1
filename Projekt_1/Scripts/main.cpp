@@ -7,10 +7,11 @@ using namespace std;
 
 int main()
 {
-	Map header('0', 0);
-	header.Add(new Map('d', 1));
+	Map header('z', 0);
+	Map m2('k', 2);
+	header.Add(&m2);
 
-	cout << header.GetNext()->GetPrevious()->GetId();
+	cout << header.GetNext()->GetPrevious()->GetLetter();
 	//Map mojaMapa1;
 	////Map mojaMapa2('d', 1, &mojaMapa1, &mojaMapa1);
 	////mojaMapa2.SetNext(&mojaMapa1);
