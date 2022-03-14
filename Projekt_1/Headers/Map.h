@@ -21,15 +21,15 @@ public:
 
 	Map() = default;//delete;
 
-	Map(char _message, int _id);//, Map* _previous, Map* _next);
+	Map(char _message, int _id);
 	//Konstruktor kopiuj¹cy
-	//Map(Map* newMap);
+	Map(Map* newMap);
 
 	const int& Size() const;
 	const char& GetLetter() const { return message; };
 	const int& GetId() const { return id; };
 	const char& operator[] (const int& index) const;     //Nie dla listy
-	
+
 	Map* GetNext() const { return next; };
 	Map* GetPrevious() const { return previous; };
 

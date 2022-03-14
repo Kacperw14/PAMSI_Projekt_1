@@ -17,8 +17,6 @@ int main()
 
 	return 0;
 
-	//Map<string> mapa1('l', 0);
-
 }//MAIN
 
 
