@@ -9,15 +9,11 @@ int main()
 {
 	Map header('z', 0);
 	Map m2('k', 2);
-	header.Add(&m2);
 
-	cout << header.GetNext()->GetPrevious()->GetLetter();
-	//Map mojaMapa1;
-	////Map mojaMapa2('d', 1, &mojaMapa1, &mojaMapa1);
-	////mojaMapa2.SetNext(&mojaMapa1);
+	header.AddAfter(&header, &m2);       //!!! 
+	header.AddAfter(&m2, new Map('p', 3));
 
-	//cout<< mojaMapa2[1]<<endl; 
-
+	cout << header.GetNext()->GetNext()->GetLetter();
 
 	return 0;
 

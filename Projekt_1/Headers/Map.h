@@ -28,10 +28,7 @@ public:
 	const int& Size() const;
 	const char& GetLetter() const { return message; };
 	const int& GetId() const { return id; };
-	const char& operator[] (const int& index) const;
-	//const char& operator[] (int index) const;        //Child's letter;
-	
-	
+	const char& operator[] (const int& index) const;     //Nie dla listy
 	
 	Map* GetNext() const { return next; };
 	Map* GetPrevious() const { return previous; };
@@ -39,10 +36,11 @@ public:
 	void SetNext(Map* newMap) { next = newMap; };
 	void SetPrevious(Map* newMap) { previous = newMap; };
 
-	void Add(Map* newMap)
+	void AddAfter(Map* afterMe, Map* newMap)
 	{
-		next = newMap;
-		newMap->SetPrevious(this);
+		newMap->SetNext(afterMe->GetNext());
+		afterMe->SetNext(newMap);
+		newMap->SetPrevious(afterMe);
 	};
 
 }; //CLASS

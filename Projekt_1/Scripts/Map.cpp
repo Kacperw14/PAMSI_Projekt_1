@@ -41,8 +41,8 @@ Map::Map(char _message, int _id)//, Map* _previous, Map* _next)
 
 	message = _message;
 	id = _id;
-	//next = _next;
-	//previous = _previous;
+	next = nullptr;//_next;
+	previous = nullptr;//_previous;
 }
 
 //Map::Map(Map* newMap)
