@@ -5,34 +5,44 @@ Klasa
 
 
 */
-template <typename T = char>
+//template <typename T = char>
 class Map
 {
 private:
 
+	char message;
 	int id;
-	Map* parent;
-	Map* child;
-	T message;
+	Map* previous;
+	Map* next;
+
 
 
 public:
 
-	template<char T>
 	Map() = default;//delete;
 
-	//Map(T _message);
+	Map(char _message, int _id);//, Map* _previous, Map* _next);
+	//Konstruktor kopiuj¹cy
+	//Map(Map* newMap);
 
 	const int& Size() const;
 	const char& GetLetter() const { return message; };
-	const char& operator[] (int index) const;
+	const int& GetId() const { return id; };
+	const char& operator[] (const int& index) const;
 	//const char& operator[] (int index) const;        //Child's letter;
-	const Map* GetChild() const { return child; };
-	void SetParent(const Map& _parent) { parent = _parent; };
-	const void Add(Map& newMap) 
+	
+	
+	
+	Map* GetNext() const { return next; };
+	Map* GetPrevious() const { return previous; };
+
+	void SetNext(Map* newMap) { next = newMap; };
+	void SetPrevious(Map* newMap) { next = newMap; };
+
+	void Add(Map* newMap)
 	{
-		child = &newMap; 
-		 GetChild(); 
+		next = newMap;
+		newMap->SetPrevious(next);
 	};
 
 }; //CLASS

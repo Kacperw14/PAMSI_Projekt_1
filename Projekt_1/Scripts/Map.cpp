@@ -33,12 +33,32 @@
 //}
 
 
+Map::Map(char _message, int _id)//, Map* _previous, Map* _next)
+{
+	//header = new Map('0', 0, nullptr, nullptr);
+	//trailer = new Map('0', 0, nullptr, nullptr);
+
+
+	message = _message;
+	id = _id;
+	//next = _next;
+	//previous = _previous;
+}
+
+//Map::Map(Map* newMap)
+//{
+//	message = newMap->GetLetter();
+//	id = newMap->GetId();
+//	//next = newMap->GetNext();
+//	//previous = newMap->GetPrevious();
+//}
+
 const int& Map::Size() const
 {
 	return 0;
 }
 
-const char& Map::operator[](int index) const
+const char& Map::operator[](const int& index) const
 {
 	if (index == id)
 	{
