@@ -27,16 +27,16 @@ Node::Node(char _message, int _key)
 
 Node::Node(char _mess, int _key, Node* _previous, Node* _next)
 {
-	previous =  _previous;
-	next = _next;
 	message = _mess;
 	key = _key;
+	previous =  _previous;
+	next = _next;
 }
 
 Node::Node(Node* newNode)
 {
 	message = newNode->GetLetter();
-	key = newNode->GetId();
+	key = newNode->GetKey();
 	next = newNode->GetNext();
 	previous = newNode->GetPrevious();
 }

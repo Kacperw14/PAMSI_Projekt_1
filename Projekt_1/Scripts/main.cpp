@@ -8,15 +8,18 @@ using namespace std;
 
 int main()
 {
+	
 	Node trailer('t', 0, nullptr, nullptr);
-	Node header('h', 0, nullptr, nullptr);
+	Node header('h', 0, nullptr, &trailer);
+
+	Node c('h', 0, nullptr, nullptr);
 
 	Node m2('k', 2);
 
 	header.AddAfter(&header, &m2);       //!!! 
-	header.AddAfter(&m2, new Node('p', 3));
+	//header.AddAfter(&m2, new Node('p', 3));
 
-	cout << header.GetNext()->GetNext()->GetLetter();
+	cout << trailer.IsEmpty();
 
 	return 0;
 
