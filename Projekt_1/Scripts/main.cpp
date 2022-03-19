@@ -1,17 +1,20 @@
 ﻿#include <iostream>
 #include<list>
 #include<string>
-#include "../Headers/Map.h"
+//#include "../Headers/Node.h"
+#include "../Headers/List.h"
 
 using namespace std;
 
 int main()
 {
-	Map header('z', 0);
-	Map m2('k', 2);
+	Node trailer('t', 0, nullptr, nullptr);
+	Node header('h', 0, nullptr, nullptr);
+
+	Node m2('k', 2);
 
 	header.AddAfter(&header, &m2);       //!!! 
-	header.AddAfter(&m2, new Map('p', 3));
+	header.AddAfter(&m2, new Node('p', 3));
 
 	cout << header.GetNext()->GetNext()->GetLetter();
 
@@ -23,5 +26,5 @@ int main()
 // Merge sort
 // lista dwukierunkwa
 // Iterator ??
-// kontenery sekwencyjne
+// kontenery sekwencyjne!
 // kopiec

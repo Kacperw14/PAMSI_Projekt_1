@@ -19,11 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scripts\List.cpp" />
     <ClCompile Include="Scripts\main.cpp" />
-    <ClCompile Include="Scripts\Map.cpp" />
+    <ClCompile Include="Scripts\Node.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\Map.h" />
+    <ClInclude Include="Headers\Node.h" />
+    <ClInclude Include="Headers\List.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
