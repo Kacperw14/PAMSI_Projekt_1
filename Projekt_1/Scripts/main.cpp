@@ -8,18 +8,23 @@ using namespace std;
 
 int main()
 {
+
+	Node trailer('t', nullptr, nullptr);
+	//Node header('h', 0, nullptr, &trailer);
+	//trailer.SetPrevious(&header);
+	cout << trailer.GetKey() <<endl;
+	cout << trailer.Max() << endl;
+	trailer.AddAtTheEnd('a');
+	/*trailer.Insert('b');
+	trailer.Insert('c');
+	trailer.Insert('d');
 	
-	Node trailer('t', 0, nullptr, nullptr);
-	Node header('h', 0, nullptr, &trailer);
 
-	Node c('h', 0, nullptr, nullptr);
-
-	Node m2('k', 2);
-
-	header.AddAfter(&header, &m2);       //!!! 
-	//header.AddAfter(&m2, new Node('p', 3));
-
-	cout << trailer.IsEmpty();
+	cout<< trailer.Size()<<endl;
+	cout<< trailer.AtIndex(3)<<endl;
+	cout<< trailer.IndexOf('c') << endl;
+	*/
+	
 
 	return 0;
 

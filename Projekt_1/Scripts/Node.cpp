@@ -11,26 +11,25 @@
 //}
 
 
-Node::Node(char _message, int _key)
+Node::Node(char _message)
 {
 	message = _message;
-
-	if (_key >= 0)
-	{
-		key = _key;
-	}
-	else throw;         //EXCEPTIONS
-
-	next = nullptr;
+	if (GetPrevious() != nullptr) key = GetPrevious()->GetKey() + 1;
+	else key = 0;
+	//header = new Node('0', 0, nullptr, nullptr);
+	//trailer = new Node('0', 0, header, nullptr);
+	//header->SetNext(trailer);
 	previous = nullptr;
+	next = nullptr;
 }
 
-Node::Node(char _mess, int _key, Node* _previous, Node* _next)
+Node::Node(char _mess, Node* _previous, Node* _next)
 {
 	message = _mess;
-	key = _key;
-	previous =  _previous;
+	previous = _previous;
 	next = _next;
+	if (GetPrevious() != nullptr) key = _previous->GetKey() + 1;
+	else key = 0;
 }
 
 Node::Node(Node* newNode)
@@ -41,28 +40,66 @@ Node::Node(Node* newNode)
 	previous = newNode->GetPrevious();
 }
 
-const int& Node::Size() const
-{
-	return 0;
-}
 
-const char& Node::operator[](const int& index) const
+//const char& Node::operator[](const int& index) const
+//{
+//	if (index == key)
+//	{
+//		return message;
+//	}
+//	else
+//	{
+//		return '0';
+//	}
+//}
+
+void Node::AddAfter(Node* afterMe, Node* newNode)            //niezgodne z posortowanym kluczem
 {
-	if (index == key)
+	if (afterMe->GetKey() == Max())
 	{
-		return message;
+		newNode->SetNext(afterMe->GetNext());
+		afterMe->SetNext(newNode);
+		newNode->SetPrevious(afterMe);
 	}
 	else
 	{
-		return '0';
+		newNode->SetNext(afterMe->GetNext());
+		afterMe->GetNext()->SetPrevious(newNode);
+		afterMe->SetNext(newNode);
+		newNode->SetPrevious(afterMe);
 	}
+
 }
 
-void Node::AddAfter(Node* afterMe, Node* newMap)
+
+const bool& Node::IsEmpty() const
 {
-	newMap->SetNext(afterMe->GetNext());
-	afterMe->SetNext(newMap);
-	newMap->SetPrevious(afterMe);
+	if (GetPrevious() != nullptr || GetNext() != nullptr)
+	{
+		return false;
+	}
+	else return true;
+}
+
+const int Node::Size() const
+{
+	int size = 1;
+	Node* head = previous;
+	Node* trailer = next;
+
+	while (head != nullptr)
+	{
+		size++;
+		head = head->GetPrevious();
+	}
+
+	while (trailer != nullptr)
+	{
+		size++;
+		trailer = trailer->GetNext();
+	}
+
+	return size;
 }
 
 
