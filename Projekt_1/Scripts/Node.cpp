@@ -38,9 +38,6 @@ Node::Node(Node* newNode)
 	previous = newNode->GetPrevious();
 }
 
-
-//Funkcje umozliwiajace dostep do atrybutow. Dostep tylko do odczytu.
-
 const char& Node::GetLetter() const
 {
 	if (this == nullptr) return '0';
@@ -65,16 +62,5 @@ Node* Node::GetPrevious() const
 	else return previous;
 }
 
-//const char& Node::operator[](const int& index) const
-//{
-//	if (index == key)
-//	{
-//		return message;
-//	}
-//	else
-//	{
-//		return '0';
-//	}
-//}
 
 

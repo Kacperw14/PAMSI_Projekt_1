@@ -15,10 +15,6 @@ private:
 	int key;
 	Node* previous;
 	Node* next;
-	//Node* header;
-	//Node* trailer;
-
-
 
 public:
 	
@@ -38,6 +34,5 @@ public:
 	void SetNext(Node* newNode) { next = newNode; };
 	void SetPrevious(Node* NewNode) { previous = NewNode; };
 
-	//const char& operator[] (const int& index) const;             //Nie dla listy
 }; //CLASS
 
