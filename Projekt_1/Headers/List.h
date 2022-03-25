@@ -3,31 +3,20 @@
 
 class List : Node
 {
-	Node* header, trailer;
+private:
+	Node* header;
+	Node* trailer;
 
-	List()
-	{
-		header = new Node('0', nullptr, nullptr);
-		trailer = new Node('0', nullptr, nullptr);
-	}
+public:
 
-	Node* AtIndex(const int& key)
-	{
-		Node* help = this;
-		Node* end = this;
+	//Konstruktory
+	List();
 
-		for (int i = 0; i < Size(); i++)
-		{
-			if (key == help->GetKey()) return help;//help->GetLetter();
-			else if (key == end->GetKey()) return end;//->GetLetter();
-
-			if (help->GetNext() != nullptr) help = help->GetNext();
-			else if (end->GetPrevious() != nullptr) end = end->GetPrevious();
-			//std::cout << key << help->GetKey() << end->GetKey()<< std::endl;
-		}
-
-		return AtIndex(0);
-	}
+	//
+	Node* GetHeader() const { return header; };
+	Node* GetTrailer() const { return trailer; };
+	/*
+	Node* AtIndex(const int& key);
 	const int& IndexOf(const char& mess) const                //Iterator
 	{
 		//for (mess;  mess == GetLetter(); this->GetNext())
@@ -89,7 +78,7 @@ class List : Node
 	const int Size() const;               //zmienna statyczna?
 
 
-
+	*/
 
 }; //CLASS
 

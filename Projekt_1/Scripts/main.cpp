@@ -8,13 +8,14 @@ using namespace std;
 
 int main()
 {
-
-	Node trailer('t', nullptr, nullptr);
+	List Lista;
+	cout << Lista.GetHeader()->GetNext()->GetNext()->GetKey() << endl;
+	//Node trailer('t', nullptr, nullptr);
 	//Node header('h', 0, nullptr, &trailer);
 	//trailer.SetPrevious(&header);
-	cout << trailer.GetKey() <<endl;
-	cout << trailer.Max() << endl;
-	trailer.AddAtTheEnd('a');
+	//cout << trailer.GetKey() <<endl;
+	//cout << trailer.Max() << endl;
+	//trailer.AddAtTheEnd('a');
 	/*trailer.Insert('b');
 	trailer.Insert('c');
 	trailer.Insert('d');

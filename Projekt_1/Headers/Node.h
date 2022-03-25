@@ -21,26 +21,23 @@ private:
 
 
 public:
-
+	
 	//Konstruktory
-	Node() = default;
+	Node() = default;      //delete
 	Node(char _message);
-	Node(char _mess, Node* _previous, Node* _next);
+	Node(char _mess, int _key, Node* _previous, Node* _next);
 	Node(Node* newNode); 	                                     //Konstruktor kopiuj¹cy
 
-	const char& GetLetter() const { return message; };
-	const int& GetKey() const { return key; };
-	//const char& operator[] (const int& index) const;             //Nie dla listy
+	//Funkcje umozliwiajace dostep do atrybutow. Dostep tylko do odczytu.
+	const char& GetLetter() const;
+	const int& GetKey() const;
+	Node* GetNext() const;
+	Node* GetPrevious() const;
 
-
-	Node* GetNext() const { return next; };
-	Node* GetPrevious() const { return previous; };
-
+	//Funkcje umozliwiajace zmiane atrybutow.
 	void SetNext(Node* newNode) { next = newNode; };
 	void SetPrevious(Node* NewNode) { previous = NewNode; };
 
-
-
-
+	//const char& operator[] (const int& index) const;             //Nie dla listy
 }; //CLASS
 
