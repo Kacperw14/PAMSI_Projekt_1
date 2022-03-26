@@ -38,9 +38,9 @@ Node::Node(Node* newNode)
 	previous = newNode->GetPrevious();
 }
 
-const char& Node::GetLetter() const
+const std::string& Node::GetLetter() const
 {
-	if (this == nullptr) return '0';
+	if (this == nullptr) return "0";
 	else return message;
 }
 

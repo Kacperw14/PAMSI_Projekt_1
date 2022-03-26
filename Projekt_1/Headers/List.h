@@ -26,8 +26,8 @@ public:
 	//	header->SetNext(newNode);
 	//};
 
-	void AddAtEnd(const char& mess) const;
-	void AddAtFront(const char& mess) const;
+	void AddAtEnd(const std::string& mess) const;
+	void AddAtFront(const std::string& mess) const;
 	//
 	const Node* AtIndex(const int& key);
 	//

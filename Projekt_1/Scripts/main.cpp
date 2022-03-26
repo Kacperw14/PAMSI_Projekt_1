@@ -13,22 +13,10 @@ int main()
 	string s;
 	do
 	{
-		/*cin.ignore();
-		cin.clear();
-		c = cin.get();
-		*/
-		//cin >> c;
-		getline(cin,s);
-		cout << s << endl;
-		Lista.AddAtEnd(c);	
-	} 
-	while (c != ' ');
-	//cout << Lista.AtIndex(1)->GetKey() << endl;
-//Lista.AddAtEnd('b');
-//Lista.AddAtEnd('c');
-//Lista.AddAtFront('d');
-//Lista.AddAtFront('e');
-
+		s = cin.get();
+		Lista.AddAtEnd(s);
+	} while (s != "\n"); //"k");//
+	
 	cout << Lista.Size() << endl;
 
 	cout << Lista.GetHeader()->GetLetter() << endl;

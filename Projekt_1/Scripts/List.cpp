@@ -5,8 +5,8 @@
 
 List::List()
 {
-	header = new Node('h', 0, nullptr, nullptr);
-	trailer = new Node('t', 0, header, nullptr);
+	header = new Node("h", 0, nullptr, nullptr);
+	trailer = new Node("h", 0, header, nullptr);
 	header->SetNext(trailer);
 }
 
@@ -79,7 +79,7 @@ const Node* List::AtIndex(const int& key)
 
 }
 
-void List::AddAtEnd(const char& mess) const
+void List::AddAtEnd(const std::string& mess) const
 {
 
 	Node* newNode = new Node(mess);
@@ -89,7 +89,7 @@ void List::AddAtEnd(const char& mess) const
 	trailer->SetPrevious(newNode);
 
 }
-void List::AddAtFront(const char& mess) const
+void List::AddAtFront(const std::string& mess) const
 {
 	Node* newNode = new Node(mess);
 	newNode->SetPrevious(header);

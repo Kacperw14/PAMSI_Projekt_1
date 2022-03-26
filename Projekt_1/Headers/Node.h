@@ -26,7 +26,7 @@ public:
 	Node(Node* newNode); 	                                     //Konstruktor kopiuj¹cy
 
 	//Funkcje umozliwiajace dostep do atrybutow. Dostep tylko do odczytu.
-	const char& GetLetter() const;
+	const std::string& GetLetter() const;
 	const int& GetKey() const;
 	Node* GetNext() const;
 	Node* GetPrevious() const;
