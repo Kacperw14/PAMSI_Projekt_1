@@ -13,10 +13,29 @@ public:
 	List();
 
 	//
-	Node* GetHeader() const { return header; };
-	Node* GetTrailer() const { return trailer; };
+	const bool IsEmpty() const;
+	const int Size();  //!!cout << Size()<< endl;	
+
+	//
+	//void InsertElement(const char& mess, const int& key) const               //Lista automatycznie nadaje klucz
+	//{
+	//	Node* newNode = new Node(mess);
+	//	newNode->SetPrevious(AtIndex(key));
+	//	newNode->SetNext(header->GetNext());
+	//	header->GetNext()->SetPrevious(newNode);
+	//	header->SetNext(newNode);
+	//};
+
+	void AddAtEnd(const char& mess) const;
+	void AddAtFront(const char& mess) const;
+	//
+	const Node* AtIndex(const int& key);
+	//
+	const Node* GetHeader() const { return header; };
+	const Node* GetTrailer() const { return trailer; };
+
 	/*
-	Node* AtIndex(const int& key);
+
 	const int& IndexOf(const char& mess) const                //Iterator
 	{
 		//for (mess;  mess == GetLetter(); this->GetNext())
@@ -74,8 +93,7 @@ public:
 	void AddAfter(Node* afterMe, Node* newNode);
 
 
-	const bool& IsEmpty() const;
-	const int Size() const;               //zmienna statyczna?
+
 
 
 	*/

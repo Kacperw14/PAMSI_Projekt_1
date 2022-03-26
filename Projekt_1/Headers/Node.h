@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>           //!
+#include <string>
 /*
 Klasa
 
@@ -11,7 +12,7 @@ class Node
 {
 private:
 
-	char message;
+	std::string message;
 	int key;
 	Node* previous;
 	Node* next;
@@ -20,8 +21,8 @@ public:
 	
 	//Konstruktory
 	Node() = default;      //delete
-	Node(char _message);
-	Node(char _mess, int _key, Node* _previous, Node* _next);
+	Node(std::string _message);
+	Node(std::string _mess, int _key, Node* _previous, Node* _next);
 	Node(Node* newNode); 	                                     //Konstruktor kopiuj¹cy
 
 	//Funkcje umozliwiajace dostep do atrybutow. Dostep tylko do odczytu.

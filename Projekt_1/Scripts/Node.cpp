@@ -11,7 +11,7 @@
 //}
 
 
-Node::Node(char _message)
+Node::Node(std::string _message)
 {
 	message = _message;
 	if (GetPrevious() != nullptr) key = GetPrevious()->GetKey() + 1;
@@ -20,7 +20,7 @@ Node::Node(char _message)
 	next = nullptr;
 }
 
-Node::Node(char _mess, int _key, Node* _previous, Node* _next)
+Node::Node(std::string _mess, int _key, Node* _previous, Node* _next)
 {
 	message = _mess;
 	previous = _previous;
