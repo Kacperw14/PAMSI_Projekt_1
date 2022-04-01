@@ -18,10 +18,10 @@ private:
 	Node* next;
 
 public:
-	
+
 	//Konstruktory
 	Node() = default;      //delete
-	Node(std::string _message);
+	Node(std::string _message);  //key
 	Node(std::string _mess, int _key, Node* _previous, Node* _next);
 	Node(Node* newNode); 	                                     //Konstruktor kopiuj¹cy
 
@@ -32,8 +32,10 @@ public:
 	Node* GetPrevious() const;
 
 	//Funkcje umozliwiajace zmiane atrybutow.
-	void SetNext(Node* newNode) { next = newNode; };
-	void SetPrevious(Node* NewNode) { previous = NewNode; };
+	void SetKey(const int& _key) { key = _key; };
+	void SetNext(Node* newNode) { if (this != nullptr) next = newNode; };
+	void SetPrevious(Node* newNode) { if (this != nullptr) previous = newNode; };
+
 
 }; //CLASS
 

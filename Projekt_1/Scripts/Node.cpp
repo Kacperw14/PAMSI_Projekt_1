@@ -14,8 +14,13 @@
 Node::Node(std::string _message)
 {
 	message = _message;
-	if (GetPrevious() != nullptr) key = GetPrevious()->GetKey() + 1;
-	else key = 1;
+	key = 0;
+	/*if (GetPrevious() != nullptr) key = GetPrevious()->GetKey() + 1;
+	else
+	{
+		key = 1;
+		std::cout << "lol" << std::endl;
+	}*/
 	previous = nullptr;
 	next = nullptr;
 }
@@ -25,9 +30,10 @@ Node::Node(std::string _mess, int _key, Node* _previous, Node* _next)
 	message = _mess;
 	previous = _previous;
 	next = _next;
-	if (_key == 0) key = _key;											//Szczegolny przypadek header, trailer
-	else if (GetPrevious() != nullptr) key = _previous->GetKey() + 1;
-	else key = 1;
+	key = 0;
+	//if (_key == 0) key = _key;											//Szczegolny przypadek header, trailer
+	//else if (GetPrevious() != nullptr) key = _previous->GetKey() + 1;
+	//else key = 1;
 }
 
 Node::Node(Node* newNode)
@@ -56,7 +62,7 @@ Node* Node::GetNext() const
 	else return next;
 }
 
-Node* Node::GetPrevious() const 
+Node* Node::GetPrevious() const
 {
 	if (this == nullptr) return nullptr;
 	else return previous;

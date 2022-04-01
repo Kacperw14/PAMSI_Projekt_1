@@ -8,42 +8,27 @@ using namespace std;
 
 int main()
 {
+	//Node N("h");
+	//Node* T = new Node("t");
+	//N.GetPrevious()->SetPrevious(T);
 	List Lista;
-	char c;
 	string s;
+	
 	do
 	{
 		s = cin.get();
 		Lista.AddAtEnd(s);
-	} while (s != "\n"); //"k");//
+	} while (s != "\n"); //"k"); //'\n' się zapisuje Lista.removeEnd();
 	
-	cout << Lista.Size() << endl;
-
-	cout << Lista.GetHeader()->GetLetter() << endl;
-	cout << Lista.GetHeader()->GetNext()->GetLetter() << endl;
-	cout << Lista.GetHeader()->GetNext()->GetNext()->GetLetter() << endl;
-	cout << Lista.GetHeader()->GetNext()->GetNext()->GetNext()->GetLetter() << endl;
-	cout << Lista.GetHeader()->GetNext()->GetNext()->GetNext()->GetNext()->GetLetter() << endl;
-	//for (int i = 0; i < Lista.Size(); i++)
-
-
-	//cout << Lista.Size()<< endl;	
-	//Node trailer('t', nullptr, nullptr);
-	//Node header('h', 0, nullptr, &trailer);
-	//trailer.SetPrevious(&header);
-	//cout << trailer.GetKey() <<endl;
-	//cout << trailer.Max() << endl;
-	//trailer.AddAtTheEnd('a');
-	/*trailer.Insert('b');
-	trailer.Insert('c');
-	trailer.Insert('d');
-
-
-	cout<< trailer.Size()<<endl;
-	cout<< trailer.AtIndex(3)<<endl;
-	cout<< trailer.IndexOf('c') << endl;
-	*/
-
+	//Lista.AddAfter(Lista.AtIndex(2) ,new Node("z"));
+	//Lista.AddAtFront("n");
+	Lista.Insert(3, new Node("w"));
+	//cout<< Lista.Size() << endl;
+	//cout << Lista.IndexOf("\n") << endl;
+	//cout << Lista.AtIndex(2)->GetLetter() << endl;            //enter!!!!
+	//cout << Lista.AtIndex(2)->GetKey() << endl;
+	
+	Lista.PrintList();
 
 	return 0;
 
