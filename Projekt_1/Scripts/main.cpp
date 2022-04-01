@@ -1,7 +1,4 @@
 ﻿#include <iostream>
-#include<list>
-
-//#include "../Headers/Node.h"
 #include "../Headers/List.h"
 
 using namespace std;
