@@ -15,7 +15,7 @@ public:
 	const bool& IsEmpty() const;
 	const int& Size();
 
-	void AddAtEnd(const std::string& mess);
+	void AddAtEnd(const std::string& mess, int key);
 	void AddAtFront(const std::string& mess);
 	void AddAfter(Node* afterMe, Node* newNode);
 	void Insert(const int& _key, Node* newNode);
@@ -29,6 +29,73 @@ public:
 	//
 	const Node* GetHeader() const { return header; };
 	const Node* GetTrailer() const { return trailer; };
+
+	Node* partition(Node* h, Node* t)
+	{
+		// set pivot as h element
+		int x = t->GetKey();
+
+		// similar to i = l-1 for array implementation
+		Node* i = h->GetPrevious();
+
+		// Similar to "for (int j = l; j <= h- 1; j++)"
+		for (Node* j = h; j != t; j = j->GetNext())
+		{
+			if (j->GetKey() <= x)
+			{
+				// Similar to i++ for array
+				i = (i == NULL) ? h : i->GetNext();
+
+				i->SwapKeys(j);
+				//swap(&(i->GetKey()), &(j->GetKey()));
+			}
+		}
+		i = (i == NULL) ? h : i->GetNext(); // Similar to i++
+		i->SwapKeys(t);
+		//swap(&(i->GetKey()), &(t->GetKey()));
+		return i;
+	}
+
+	void _quickSort(Node* h, Node* t)
+	{
+		if (t != NULL && h != t && h != t->GetNext())
+		{
+			Node* p = partition(h, t);
+			_quickSort(h, p->GetPrevious());
+			_quickSort(p->GetNext(), t);
+		}
+	}
+
+	void quickSort()
+	{
+		// Call the recursive QuickSort
+		_quickSort(header, trailer);
+	}
+
+	void SortKeys(List* _list)
+	{
+		Node* head = header;
+		Node* trail = trailer;
+
+		while (head != trail)
+		{
+			head = head->GetNext();
+			trail = trail->GetPrevious();
+			if (head->GetKey() < trail->GetKey()) head->SwapKeys(trail);
+		}
+		//const Node* pivot = _list->AtIndex(Size() / 2);
+		//std::cout << pivot->GetKey() << std::endl;
+
+		//while (pivot->GetKey() != 1)
+		//{
+		//	if (pivot->GetKey() < pivot->GetPrevious()->GetKey()) pivot = pivot->GetPrevious();
+		//	else pivot = pivot->GetNext();
+
+		//	std::cout << head->GetKey() << std::endl;
+		//	//std::cout << std::endl << Size() << std::endl;
+		//	std::cout << pivot->GetLetter() << std::endl;
+		//}
+	}
 
 
 	/*
@@ -62,33 +129,7 @@ public:
 
 
 
-	void SortKeys()
-	{
-		Node* head = header;
-		Node* trail = trailer;
 
-		while (head == trail)
-		{
-			head = head->GetNext();
-			trail = trail->GetPrevious();
-		}
-		Node* pivot = head;
-		/*const Node* mid = AtIndex(Size() / 2);
-
-		std::cout << mid->GetKey() << std::endl;
-
-		while (mid->GetKey() != 1)
-		{
-			if (mid->GetKey() < mid->GetPrevious()->GetKey()) mid = mid->GetPrevious();
-			else mid = mid->GetNext();
-		
-	std::cout << head->GetKey() << std::endl;
-	//std::cout << std::endl << Size() << std::endl;
-	std::cout << pivot->GetLetter() << std::endl;
-
-
-
-}
 
 
 	*/

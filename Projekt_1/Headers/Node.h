@@ -21,7 +21,7 @@ public:
 
 	//Konstruktory
 	Node() = default;      //delete
-	Node(std::string _message);  //key
+	Node(std::string _message, int _key);  //key
 	Node(std::string _mess, int _key, Node* _previous, Node* _next);
 	Node(Node* newNode); 	                                     //Konstruktor kopiuj¹cy
 
@@ -36,6 +36,12 @@ public:
 	void SetNext(Node* newNode) { if (this != nullptr) next = newNode; };
 	void SetPrevious(Node* newNode) { if (this != nullptr) previous = newNode; };
 
+	void SwapKeys(Node* _node)
+	{
+		int k = GetKey();
+		SetKey(_node->GetKey());
+		_node->SetKey(k);
+	}
 
 }; //CLASS
 

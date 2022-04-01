@@ -33,44 +33,46 @@ const int& List::Size()
 	return size;
 }
 
-void List::AddAtEnd(const std::string& mess)
+void List::AddAtEnd(const std::string& mess, int key)
 {
-	Node* newNode = new Node(mess);
-	newNode->SetNext(trailer);
-	newNode->SetPrevious(trailer->GetPrevious());
+	//Node* newNode = new Node(mess);
+	Node* newNode = new Node(mess, key, trailer->GetPrevious(), trailer);
+	//newNode->SetNext(trailer);
+	//newNode->SetPrevious(trailer->GetPrevious());
 	trailer->GetPrevious()->SetNext(newNode);
 	trailer->SetPrevious(newNode);
 
-	newNode->SetKey((newNode->GetPrevious()->GetKey() + 1));   //Ustalenie klucza
+	//ResetKeys();   //nie mo¿na tak :c
+	//newNode->SetKey((newNode->GetPrevious()->GetKey() + 1));   //Ustalenie klucza
 
 }
 
-void List::AddAtFront(const std::string& mess)        //ustalanie key + sort()
-{
-	Node* newNode = new Node(mess);
-	newNode->SetPrevious(header);
-	newNode->SetNext(header->GetNext());
-	header->GetNext()->SetPrevious(newNode);
-	header->SetNext(newNode);
-	ResetKeys();
-}
-
-void List::AddAfter(Node* afterMe, Node* newNode)
-{
-	newNode->SetPrevious(afterMe);
-	newNode->SetNext(afterMe->GetNext());
-	afterMe->GetNext()->SetPrevious(newNode);
-	afterMe->SetNext(newNode);
-	ResetKeys();
-}
-void List::Insert(const int& _key, Node* newNode)
-{
-	newNode->SetPrevious(AtIndex(_key));
-	newNode->SetNext(AtIndex(_key)->GetNext());
-	AtIndex(_key)->GetNext()->SetPrevious(newNode);
-	AtIndex(_key)->SetNext(newNode);
-	ResetKeys();
-}
+//void List::AddAtFront(const std::string& mess)        //ustalanie key + sort()
+//{
+//	Node* newNode = new Node(mess);
+//	newNode->SetPrevious(header);
+//	newNode->SetNext(header->GetNext());
+//	header->GetNext()->SetPrevious(newNode);
+//	header->SetNext(newNode);
+//	ResetKeys();
+//}
+//
+//void List::AddAfter(Node* afterMe, Node* newNode)
+//{
+//	newNode->SetPrevious(afterMe);
+//	newNode->SetNext(afterMe->GetNext());
+//	afterMe->GetNext()->SetPrevious(newNode);
+//	afterMe->SetNext(newNode);
+//	ResetKeys();
+//}
+//void List::Insert(const int& _key, Node* newNode)
+//{
+//	newNode->SetPrevious(AtIndex(_key));
+//	newNode->SetNext(AtIndex(_key)->GetNext());
+//	AtIndex(_key)->GetNext()->SetPrevious(newNode);
+//	AtIndex(_key)->SetNext(newNode);
+//	ResetKeys();
+//}
 
 void List::PrintList()                //Musi to posk³adaæ!!
 {
@@ -87,8 +89,8 @@ void List::ResetKeys()
 	Node* head = header;
 	for (int i = 0; i < Size(); i++)
 	{
-		head->SetKey(i);
-		head = head->GetNext();
+		head = head->GetNext();      //pomijamy header
+		head->SetKey(i+1);           // i+1 aby paczki mia³y klucze > 0 (tylko header i trailer maj¹ klucz 0)
 	}
 }
 

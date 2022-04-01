@@ -10,22 +10,37 @@ int main()
 	//N.GetPrevious()->SetPrevious(T);
 	List Lista;
 	string s;
-	
-	do
+	int k;
+
+	//do
+	//{
+	//	s = cin.get();
+	//	Lista.AddAtEnd(s, k);
+	//} while (s != "\n"); //"k"); //'\n' się zapisuje Lista.removeEnd();
+	//
+	//s = cin.get();
+	//k = cin.get();
+	for (int i = 0; i < 10; i++)
 	{
-		s = cin.get();
-		Lista.AddAtEnd(s);
-	} while (s != "\n"); //"k"); //'\n' się zapisuje Lista.removeEnd();
-	
+		s = "a";
+		k = rand()%10;
+		Lista.AddAtEnd(s, k);
+	}
+
+
 	//Lista.AddAfter(Lista.AtIndex(2) ,new Node("z"));
 	//Lista.AddAtFront("n");
-	Lista.Insert(3, new Node("w"));
+	//Lista.Insert(3, new Node("w"));
 	//cout<< Lista.Size() << endl;
 	//cout << Lista.IndexOf("\n") << endl;
 	//cout << Lista.AtIndex(2)->GetLetter() << endl;            //enter!!!!
 	//cout << Lista.AtIndex(2)->GetKey() << endl;
-	
+
+	//Lista.PrintList();
+	//Lista.SortKeys(&Lista);
+	Lista.quickSort();
 	Lista.PrintList();
+
 
 	return 0;
 

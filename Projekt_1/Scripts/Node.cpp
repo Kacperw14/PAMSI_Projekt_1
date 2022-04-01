@@ -11,10 +11,10 @@
 //}
 
 
-Node::Node(std::string _message)
+Node::Node(std::string _message, int _key)
 {
 	message = _message;
-	key = 0;
+	key = _key;
 	/*if (GetPrevious() != nullptr) key = GetPrevious()->GetKey() + 1;
 	else
 	{
@@ -30,7 +30,7 @@ Node::Node(std::string _mess, int _key, Node* _previous, Node* _next)
 	message = _mess;
 	previous = _previous;
 	next = _next;
-	key = 0;
+	key = _key;
 	//if (_key == 0) key = _key;											//Szczegolny przypadek header, trailer
 	//else if (GetPrevious() != nullptr) key = _previous->GetKey() + 1;
 	//else key = 1;
