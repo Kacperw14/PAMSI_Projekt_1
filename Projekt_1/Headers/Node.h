@@ -1,12 +1,6 @@
 #pragma once
 #include <iostream>           //!
 #include <string>
-/*
-Klasa
-
-
-*/
-//template <typename T = char>
 
 class Node
 {

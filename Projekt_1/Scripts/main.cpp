@@ -11,27 +11,32 @@ int main()
 	List Lista;
 	List ListaOdb;
 	string s;
-	int k = 9;
+	int number = 0;
 
+	//s = cin.get();      //oddzielnie litery
+	//s = getline();
 
+/*for (int i = 0; i < number; i++)
+{
+}*/
+
+//cin >> s;
+//Lista.AddAtEnd(" ");
 	do
 	{
-
-		// cin.getline(s, '\n');
-		s = cin.get();      //oddzielnie litery
-		Node* n = new Node(s, 2);
-	
+		//getline(cin, s, ' ');
+		//cin.putback(' ');
+		cin >> s;
 		Lista.AddAtEnd(s);
-	} while (s != "\n"); //"k"); //'\n' się zapisuje Lista.removeEnd();
+		//cin.unget();
+		//Lista.AddAtEnd(s);
+		//cin.putback('\n');
+		//cout << cin.out;
+	} while (cin.peek() != '\n'); //"k"); //'\n' się zapisuje Lista.removeEnd();
 	//} while (s != "k"); //"k"); //'\n' się zapisuje Lista.removeEnd();
-	
-	//cin >> s;
-	//Lista.AddAtEnd(s);
-	//Lista.AddAtEnd(s);
-	//Lista.AddAtEnd(s);
-	////cout << Lista.Size() << endl;
+
 	Lista.PrintList();
-	
+
 	cout << endl;
 
 	ListaOdb.ReceiveMessage(Lista);
@@ -41,10 +46,3 @@ int main()
 	return 0;
 
 }//MAIN
-
-
-// Merge sort
-// lista dwukierunkwa
-// Iterator ??
-// kontenery sekwencyjne!
-// kopiec
