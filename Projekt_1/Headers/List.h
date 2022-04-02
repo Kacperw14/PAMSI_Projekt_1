@@ -12,19 +12,42 @@ public:
 	//Konstruktory
 	List();
 	//
-	const bool& IsEmpty() const;
-	const int& Size();
+	bool IsEmpty() const;
+	int Size() const;
 
-	void AddAtEnd(const std::string& mess, int key);
+	void AddAtEnd(const std::string& mess);
 	void AddAtFront(const std::string& mess);
 	void AddAfter(Node* afterMe, Node* newNode);
-	void Insert(const int& _key, Node* newNode);
+	void AddBefore(Node* newNode, Node* beforeMe)
+	{
+		newNode->SetNext(beforeMe);
+		newNode->SetPrevious(beforeMe->GetPrevious());
+		beforeMe->GetPrevious()->SetNext(newNode);
+		beforeMe->SetPrevious(newNode);
+		// ResetKeys();
+	};
 
-	void PrintList();                //Musi to posk³adaæ!!
-	void ResetKeys();
+	void Insert(Node* newNode)
+	{
+		//Node* head = header;
+		Node* trail = trailer;
+
+		if (trail->GetPrevious() == nullptr) AddBefore(newNode, trail);
+		else 
+		{
+			//while(newNode->GetKey() < head->GetKey()) head = head->GetNext();
+			while (newNode->GetKey() < trail->GetKey() && IsEmpty()) trail = trail->GetPrevious();
+
+			AddAfter(trail, newNode);
+		}
+	};
+
+	void PrintList() const;                //Musi to posk³adaæ!!
+	void PrintMessage() const;                //Musi to posk³adaæ!!
+	void ResetKeys();  //???
 	//
-	Node* AtIndex(const int& key);
-	const int& IndexOf(const std::string& mess);              //Iterator
+	Node* AtIndex(int _key) const;
+	int IndexOf(const std::string& mess) const;              //Iterator
 
 	//
 	const Node* GetHeader() const { return header; };

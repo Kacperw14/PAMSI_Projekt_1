@@ -11,6 +11,14 @@
 //}
 
 
+Node::Node()
+{
+	message = "0";
+	key = 0;
+	previous = nullptr;
+	next = nullptr;
+}
+
 Node::Node(std::string _message, int _key)
 {
 	message = _message;
@@ -28,9 +36,9 @@ Node::Node(std::string _message, int _key)
 Node::Node(std::string _mess, int _key, Node* _previous, Node* _next)
 {
 	message = _mess;
+	key = _key;
 	previous = _previous;
 	next = _next;
-	key = _key;
 	//if (_key == 0) key = _key;											//Szczegolny przypadek header, trailer
 	//else if (GetPrevious() != nullptr) key = _previous->GetKey() + 1;
 	//else key = 1;
@@ -44,13 +52,13 @@ Node::Node(Node* newNode)
 	previous = newNode->GetPrevious();
 }
 
-const std::string& Node::GetLetter() const
+std::string Node::GetLetter() const
 {
 	if (this == nullptr) return "0";
 	else return message;
 }
 
-const int& Node::GetKey() const
+int Node::GetKey() const
 {
 	if (this == nullptr) return 0;
 	else return key;
@@ -58,14 +66,33 @@ const int& Node::GetKey() const
 
 Node* Node::GetNext() const
 {
-	if (this == nullptr) return nullptr;
+	if (this == nullptr) throw nullptr;
 	else return next;
 }
 
 Node* Node::GetPrevious() const
 {
-	if (this == nullptr) return nullptr;
+	if (this == nullptr) throw nullptr;
 	else return previous;
+}
+
+void Node::SetNext(Node* newNode)
+{
+	if (this != nullptr) next = newNode;
+	else throw nullptr;
+}
+
+void Node::SetPrevious(Node* newNode)
+{
+	if (this != nullptr) previous = newNode;
+	else throw nullptr;
+}
+
+void Node::SwapKeys(Node* _node)
+{
+	int k = GetKey();
+	SetKey(_node->GetKey());
+	_node->SetKey(k);
 }
 
 

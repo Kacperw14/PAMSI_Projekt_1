@@ -6,11 +6,11 @@
 List::List()
 {
 	header = new Node("h", 0, nullptr, nullptr);
-	trailer = new Node("t", 0, header, nullptr);
+	trailer = new Node("t", -1, header, nullptr);
 	header->SetNext(trailer);
 }
 
-const bool& List::IsEmpty() const              //bool&
+bool List::IsEmpty() const              //bool&
 {
 	if (header->GetNext() == trailer)
 	{
@@ -19,52 +19,50 @@ const bool& List::IsEmpty() const              //bool&
 	else return false;
 }
 
-const int& List::Size()
+int List::Size() const
 {
 	int size = 0;
-	Node* head = header;            //zapamietuje pozycje header'a
+	Node* head = header;
 
-	while (!IsEmpty())
+	while (head != trailer)
 	{
-		header = header->GetNext(); //nie liczymy headera dlatego najpierw przsuwamy header
+		head = head->GetNext();
 		size++;
 	}
-	header = head;
-	return size;
+	return size - 1;       //nie liczymy headera
 }
 
-void List::AddAtEnd(const std::string& mess, int key)
+void List::AddAtEnd(const std::string& mess)
 {
-	//Node* newNode = new Node(mess);
-	Node* newNode = new Node(mess, key, trailer->GetPrevious(), trailer);
+	//Node* newNode = new Node(mess, 0);
+	Node* newNode = new Node(mess, 0, trailer->GetPrevious(), trailer);
 	//newNode->SetNext(trailer);
 	//newNode->SetPrevious(trailer->GetPrevious());
 	trailer->GetPrevious()->SetNext(newNode);
 	trailer->SetPrevious(newNode);
-
+	newNode->SetKey((newNode->GetPrevious()->GetKey() + 1));   //Ustalenie klucza
 	//ResetKeys();   //nie mo¿na tak :c
-	//newNode->SetKey((newNode->GetPrevious()->GetKey() + 1));   //Ustalenie klucza
-
 }
 
-//void List::AddAtFront(const std::string& mess)        //ustalanie key + sort()
-//{
-//	Node* newNode = new Node(mess);
-//	newNode->SetPrevious(header);
-//	newNode->SetNext(header->GetNext());
-//	header->GetNext()->SetPrevious(newNode);
-//	header->SetNext(newNode);
-//	ResetKeys();
-//}
-//
-//void List::AddAfter(Node* afterMe, Node* newNode)
-//{
-//	newNode->SetPrevious(afterMe);
-//	newNode->SetNext(afterMe->GetNext());
-//	afterMe->GetNext()->SetPrevious(newNode);
-//	afterMe->SetNext(newNode);
-//	ResetKeys();
-//}
+void List::AddAtFront(const std::string& mess)        //ustalanie key + sort()
+{
+	Node* newNode = new Node(mess, 0);
+	newNode->SetPrevious(header);
+	newNode->SetNext(header->GetNext());
+	header->GetNext()->SetPrevious(newNode);
+	header->SetNext(newNode);
+	ResetKeys();
+}
+
+void List::AddAfter(Node* afterMe, Node* newNode)
+{
+	newNode->SetPrevious(afterMe);
+	newNode->SetNext(afterMe->GetNext());
+	afterMe->GetNext()->SetPrevious(newNode);
+	afterMe->SetNext(newNode);
+	// ResetKeys();
+}
+
 //void List::Insert(const int& _key, Node* newNode)
 //{
 //	newNode->SetPrevious(AtIndex(_key));
@@ -74,7 +72,7 @@ void List::AddAtEnd(const std::string& mess, int key)
 //	ResetKeys();
 //}
 
-void List::PrintList()                //Musi to posk³adaæ!!
+void List::PrintList() const                //Musi to posk³adaæ!!
 {
 	Node* head = header;
 	for (int i = 0; i < Size(); i++)
@@ -84,30 +82,40 @@ void List::PrintList()                //Musi to posk³adaæ!!
 	}
 }
 
+void List::PrintMessage() const                //Musi to posk³adaæ!!
+{
+	Node* head = header;
+	for (int i = 0; i < Size(); i++)
+	{
+		head = head->GetNext();
+		std::cout << head->GetLetter();
+	}
+}
+
 void List::ResetKeys()
 {
 	Node* head = header;
 	for (int i = 0; i < Size(); i++)
 	{
 		head = head->GetNext();      //pomijamy header
-		head->SetKey(i+1);           // i+1 aby paczki mia³y klucze > 0 (tylko header i trailer maj¹ klucz 0)
+		head->SetKey(i + 1);           // i+1 aby paczki mia³y klucze > 0 (tylko header i trailer maj¹ klucz 0)
 	}
 }
 
-Node* List::AtIndex(const int& key)
+Node* List::AtIndex(int _key) const
 {
 	Node* head = header;              //zapamietuje pozycje header'a
 	for (int i = 0; i < Size(); i++)
 	{
 		//std::cout << head->GetKey();
-		if (head->GetKey() == key) return head;
-
-		head = head->GetNext();
+		head = head->GetNext();                //bez headera
+		if (head->GetKey() == _key) return head;
 	}
 	return AtIndex(0);
 }
 
-const int& List::IndexOf(const std::string& mess)
+
+int List::IndexOf(const std::string& mess) const
 {
 	const Node* head = header;
 
