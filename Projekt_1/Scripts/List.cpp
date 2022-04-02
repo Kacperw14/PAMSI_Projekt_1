@@ -6,7 +6,7 @@
 List::List()
 {
 	header = new Node("h", 0, nullptr, nullptr);
-	trailer = new Node("t", -1, header, nullptr);
+	trailer = new Node("t", 0, header, nullptr);
 	header->SetNext(trailer);
 }
 
@@ -21,23 +21,31 @@ bool List::IsEmpty() const              //bool&
 
 int List::Size() const
 {
-	int size = 0;
-	Node* head = header;
-
-	while (head != trailer)
+	//nie liczymy headera
+//std::cout << head << std::endl;
+	if (IsEmpty()) return 0;
+	else
 	{
-		head = head->GetNext();
-		size++;
+		int size = 0;
+		Node* head = header;
+		//std::cout << header << std::endl;
+		//std::cout << trailer << std::endl;
+		while (head != trailer)
+		{
+			size++;
+			head = head->GetNext();  //tutaj
+			//std::cout << head << std::endl;
+			//std::cout << trailer << std::endl;
+		}
+		std::cout << "size" << std::endl;
+		//std::cout << "wylazlem" << std::endl;
+		return size - 1;       //nie liczymy headera
 	}
-	return size - 1;       //nie liczymy headera
 }
 
 void List::AddAtEnd(const std::string& mess)
 {
-	//Node* newNode = new Node(mess, 0);
 	Node* newNode = new Node(mess, 0, trailer->GetPrevious(), trailer);
-	//newNode->SetNext(trailer);
-	//newNode->SetPrevious(trailer->GetPrevious());
 	trailer->GetPrevious()->SetNext(newNode);
 	trailer->SetPrevious(newNode);
 	newNode->SetKey((newNode->GetPrevious()->GetKey() + 1));   //Ustalenie klucza
@@ -56,10 +64,15 @@ void List::AddAtFront(const std::string& mess)        //ustalanie key + sort()
 
 void List::AddAfter(Node* afterMe, Node* newNode)
 {
-	newNode->SetPrevious(afterMe);
-	newNode->SetNext(afterMe->GetNext());
-	afterMe->GetNext()->SetPrevious(newNode);
-	afterMe->SetNext(newNode);
+	if (afterMe != nullptr)
+	{
+		newNode->SetPrevious(afterMe);
+		newNode->SetNext(afterMe->GetNext());
+		afterMe->GetNext()->SetPrevious(newNode);
+		afterMe->SetNext(newNode);
+		std::cout << "after" << std::endl;
+	}
+	else throw "Nale¿y podaæ inne parametry ni¿ nulltr"; //???
 	// ResetKeys();
 }
 
@@ -82,7 +95,7 @@ void List::PrintList() const                //Musi to posk³adaæ!!
 	}
 }
 
-void List::PrintMessage() const                //Musi to posk³adaæ!!
+void List::PrintMessage() const              //Musi to posk³adaæ!!
 {
 	Node* head = header;
 	for (int i = 0; i < Size(); i++)
@@ -91,6 +104,8 @@ void List::PrintMessage() const                //Musi to posk³adaæ!!
 		std::cout << head->GetLetter();
 	}
 }
+
+
 
 void List::ResetKeys()
 {
@@ -104,14 +119,14 @@ void List::ResetKeys()
 
 Node* List::AtIndex(int _key) const
 {
-	Node* head = header;              //zapamietuje pozycje header'a
-	for (int i = 0; i < Size(); i++)
+	Node* head = header;
+	for (int i = 0; i < Size(); i++)          //jeœli lista jest pusta head pozostanie header
 	{
-		//std::cout << head->GetKey();
-		head = head->GetNext();                //bez headera
+		std::cout <<Size()<<i<< "index" << head->GetKey()<<_key << std::endl;
 		if (head->GetKey() == _key) return head;
+		head = head->GetNext();                //w tej kolejnoœci aby pomin¹æ header
 	}
-	return AtIndex(0);
+	return header;
 }
 
 

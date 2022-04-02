@@ -23,7 +23,9 @@ public:
 	Node();
 	Node(std::string _message, int _key);  //key
 	Node(std::string _mess, int _key, Node* _previous, Node* _next);
+	Node(const Node& newNode); 	                                     //Konstruktor kopiuj¹cy
 	Node(Node* newNode); 	                                     //Konstruktor kopiuj¹cy
+	
 
 	//Funkcje umozliwiajace dostep do atrybutow. Dostep tylko do odczytu.
 	std::string GetLetter() const;
@@ -32,7 +34,7 @@ public:
 	Node* GetPrevious() const;
 
 	//Funkcje umozliwiajace zmiane atrybutow.
-	void SetKey(int _key) { key = _key; };
+	void SetKey(int _key);
 	void SetNext(Node* newNode);
 
 	void SetPrevious(Node* newNode);

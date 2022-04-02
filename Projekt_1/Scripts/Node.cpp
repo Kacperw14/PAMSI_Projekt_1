@@ -44,6 +44,14 @@ Node::Node(std::string _mess, int _key, Node* _previous, Node* _next)
 	//else key = 1;
 }
 
+Node::Node(const Node& newNode)
+{
+	message = newNode.GetLetter();
+	key = newNode.GetKey();
+	next = newNode.GetNext();
+	previous = newNode.GetPrevious();
+}
+
 Node::Node(Node* newNode)
 {
 	message = newNode->GetLetter();
@@ -66,7 +74,7 @@ int Node::GetKey() const
 
 Node* Node::GetNext() const
 {
-	if (this == nullptr) throw nullptr;
+	if (this == nullptr) throw nullptr;//std::cout << "Cos nie tak" << std::endl; 
 	else return next;
 }
 
@@ -76,6 +84,11 @@ Node* Node::GetPrevious() const
 	else return previous;
 }
 
+void Node::SetKey(int _key)
+{
+	if (_key < 0) key = 0;
+	else key = _key;
+}
 void Node::SetNext(Node* newNode)
 {
 	if (this != nullptr) next = newNode;

@@ -14,6 +14,25 @@ public:
 	//
 	bool IsEmpty() const;
 	int Size() const;
+	void ReceiveMessage(List _lista)
+	{
+		/*std::cout << _lista.AtIndex(1)->GetLetter() << std::endl;
+		std::cout << _lista.AtIndex(2)->GetLetter() << std::endl;
+		std::cout << _lista.AtIndex(3)->GetLetter() << std::endl;
+		*/
+		//Insert(_lista.AtIndex(1));
+		//Insert(_lista.AtIndex(3));
+		//std::cout << _lista.AtIndex(4 + 1)->GetLetter() << std::endl;
+		for (int i = 0; i < _lista.Size(); i++)
+		{
+			//std::cout << _lista.AtIndex(i+1)->GetLetter()<<std::endl;
+			Insert(_lista.AtIndex(i));
+			std::cout << "reP" << std::endl;
+			//ListaOdb.AddAtEnd(Lista.AtIndex(i+1)->GetLetter());
+		}
+		std::cout << "receive" << std::endl;
+	};
+
 
 	void AddAtEnd(const std::string& mess);
 	void AddAtFront(const std::string& mess);
@@ -29,17 +48,103 @@ public:
 
 	void Insert(Node* newNode)
 	{
-		//Node* head = header;
-		Node* trail = trailer;
+		std::cout << Size() << std::endl;
 
-		if (trail->GetPrevious() == nullptr) AddBefore(newNode, trail);
-		else 
+		Node* head = header;
+		Node* stop = header;
+		if (IsEmpty()) AddAfter(header, newNode);
+		else
 		{
-			//while(newNode->GetKey() < head->GetKey()) head = head->GetNext();
-			while (newNode->GetKey() < trail->GetKey() && IsEmpty()) trail = trail->GetPrevious();
+			for (int i = 0; i < Size(); i++)
+			{
+				if (head->GetNext() != nullptr) head = head->GetNext();
 
-			AddAfter(trail, newNode);
+				if (newNode->GetKey() >= head->GetKey())
+				{
+					std::cout << "nowa wieksza równa" << std::endl;//max = head->GetKey();
+					stop = head;
+				}
+
+			}
+			std::cout << head->GetLetter() << std::endl;
+			std::cout << stop->GetLetter() << std::endl;
+			//std::cout << "Max: " << max << std::endl;
+			//AddBefore(newNode, stop);
+			AddAfter(stop, newNode);
 		}
+		/*
+		Node* trail = trailer;//->GetPrevious();
+
+		//if (IsEmpty()) //AddAtEnd(newNode->GetLetter());//
+		//else
+		//{
+		//std::cout << newNode<< std::endl;
+		//std::cout << header << std::endl;
+		if (newNode == header || newNode == trailer) std::cout << "co" << std::endl;//AddAfter(header, newNode);
+		else
+		{
+
+
+			if (Size() != 0)
+			{
+				std::cout << "jestem" << std::endl;
+				for (int i = 0; i < Size(); i++)
+				{
+					trail = trail->GetPrevious();
+					if (trail == header)
+					{
+						std::cout << "jestem header" << std::endl;
+						AddAfter(header, newNode);
+					}
+					else if (trail == trailer)
+					{
+						std::cout << "jestem trailer" << std::endl;
+						//AddAfter(header, newNode);
+					}
+					else
+					{
+						std::cout << trail->GetLetter() << std::endl;
+						if (newNode->GetKey() < trail->GetKey())
+						{
+							std::cout << i << std::endl;
+							trail = trail->GetPrevious();
+						}
+
+					}
+
+					//ListaOdb.AddAtEnd(Lista.AtIndex(i+1)->GetLetter());
+				}
+				//AddAfter(trail, newNode)
+			}
+			else
+			{
+				AddAfter(header, newNode);
+				std::cout << "ok" << std::endl;
+			}
+			//if (trail == trailer)
+			//{
+			//	std::cout << "jestem trailer" << std::endl;
+
+			//	//AddAfter(header, newNode);
+			//}
+			//else  AddAfter(trail, newNode);
+
+
+			//for (int i = 0; i < Size(); i++)
+			//{
+			//	if (newNode->GetKey() < head->GetKey()) head = head->GetNext();
+			//	//ListaOdb.AddAtEnd(Lista.AtIndex(i+1)->GetLetter());
+			//}
+			//AddBefore(newNode, head);
+		}
+		//while(newNode->GetKey() < head->GetKey()) head = head->GetNext();
+		/*do
+		{
+
+		}
+		while (newNode->GetKey() < trail->GetKey());*/
+
+
 	};
 
 	void PrintList() const;                //Musi to posk³adaæ!!
@@ -121,22 +226,25 @@ public:
 	}
 
 
-	/*
-
-
-
-	const int& Max()
+	int Max()
 	{
-		const Node* help = this;
+		const Node* head = header;
 		int max = 0;
+		if (!IsEmpty()) head = head->GetNext();
 		for (int i = 0; i < Size(); i++)
 		{
-			if (max <= help->GetKey()) max = help->GetKey();
-			if (help->GetNext() != nullptr) help = help->GetNext();
+			if (max <= head->GetKey()) max = head->GetKey();
+			if (head->GetNext() != nullptr) head = head->GetNext();
 			//std::cout << i << mess << help->GetLetter() << (mess == help->GetLetter()) << GetKey() << std::endl;
 		}
 		return max;
 	}
+
+	/*
+
+
+
+
 	const int& Min()
 	{
 		const Node* help = this;

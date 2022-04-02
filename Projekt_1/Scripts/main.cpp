@@ -11,50 +11,72 @@ int main()
 	List Lista;
 	List ListaOdb;
 	string s;
-	int k = 0;
-	//Node n;
-	//n = n.GetNext();
-	//cout << n.GetLetter()<<endl;
-	do
-	{
+	int k = 9;
 
-		// cin.getline(s, '\n');
-		s = cin.get();      //oddzielnie litery
-		//cin>> s;             //brak spacji enter
-		//ListaOdb.Insert(new Node(s, rand()));
-		Lista.AddAtEnd(s);
 
-		//cout << Lista.AtIndex(1) << endl;
-	} while (s != "\n"); //"k"); //'\n' się zapisuje Lista.removeEnd();
-		
-	cout << Lista.Size() << endl;
-	////} while (s != "k"); //"k"); //'\n' się zapisuje Lista.removeEnd();
-
-	//for (int i = 0; i < Lista.Size(); ++i)
+	//do
 	//{
-	//	//Node _node = Lista.AtIndex(i);
-	//	//cout << Lista.AtIndex(i) << endl;
-	//	//ListaOdb.Insert(&_node);
-	//	//ListaOdb.AddAtEnd(Lista.AtIndex(i)->GetLetter());
-	//}
-	////cout << ListaOdb.AtIndex(1) << endl;
-	////Lista.PrintList();
-	//cout << endl;
-	//
+
+	//	// cin.getline(s, '\n');
+	//	s = cin.get();      //oddzielnie litery
+	//	//cin>> s;             //brak spacji enter
+	//	Node* n = new Node(s, 2);
+	//	//cout<<n->GetLetter()<< n->GetKey()<<endl;
+	//	//Lista.Insert(n);
+	//	--k;
+
+	//	Lista.AddAtEnd(s);
+	////} while (s != "\n"); //"k"); //'\n' się zapisuje Lista.removeEnd();
+	//} while (s != "k"); //"k"); //'\n' się zapisuje Lista.removeEnd();
+	////cout << endl;
+	//cout << Lista.AtIndex(0)->GetLetter() << endl;
+
+	//Node* n = Lista.AtIndex(1);
+	//ListaOdb.Insert(n);
+	//ListaOdb.Insert(new Node("c", 3));
+	//ListaOdb.Insert(new Node("b", 2));
+	/*cin >> s;
+	Lista.Insert(new Node(s, 2));
+
+	cin >> s;
+	Lista.Insert(new Node(s, 1));
+	Lista.Insert(new Node(s, 3));*/
+	cin >> s;
+	Lista.AddAtEnd(s);
+	Lista.AddAtEnd(s);
+	Lista.AddAtEnd(s);
+	//cout << Lista.Size() << endl;
+	Lista.PrintList();
+	//Lista.AddAfter(Lista.AtIndex(0), new Node(s,2));
+	//Lista.AddAfter(Lista.AtIndex(1), new Node(s,3));
+	//cout << Lista.AtIndex(1)->GetLetter() << endl;
+	//Lista.Insert(Lista.AtIndex(5));
+
+	//ListaOdb.ReceiveMessage(Lista);
+	ListaOdb.Insert(Lista.AtIndex(1));
+	Lista.AtIndex(2);
+	std::cout << "nast" << std::endl;
+	ListaOdb.Insert(Lista.AtIndex(3));
+	//ListaOdb.Insert(Lista.AtIndex(4));
+////cout << ListaOdb.AtIndex(1)->GetLetter() << endl;
+	/*cout<< ListaOdb.Size()<<endl;
+	cout<< ListaOdb.GetHeader()->GetLetter()<<endl;
+	cout<< ListaOdb.GetHeader()->GetNext()-> GetLetter()<<endl;
+	cout<< ListaOdb.GetHeader()->GetNext()->GetLetter()<<endl;*/
+
+	cout << endl;
+	cout << ListaOdb.GetHeader()->GetLetter() << endl;
+	cout << ListaOdb.GetHeader()->GetNext()->GetLetter() << endl;
+	cout << ListaOdb.GetHeader()->GetNext()->GetNext()->GetLetter() << endl;
+	//ListaOdb.PrintList();
+
 	//ListaOdb.PrintMessage();
 
 	////s = cin.get();
 	////k = cin.get();
 
 
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	s = "a";
-	//	k = rand()%10;
-	//	//k = i;
-	//	Lista.Insert(new Node(s, k));
-	//	//Lista.AddAtEnd(s, k);
-	//}
+
 
 
 	//Lista.AddAfter(Lista.AtIndex(2) ,new Node("z"));
