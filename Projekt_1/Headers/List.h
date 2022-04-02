@@ -16,25 +16,18 @@ public:
 	int Size() const;
 	void ReceiveMessage(List _lista)
 	{
-		/*std::cout << _lista.AtIndex(1)->GetLetter() << std::endl;
-		std::cout << _lista.AtIndex(2)->GetLetter() << std::endl;
-		std::cout << _lista.AtIndex(3)->GetLetter() << std::endl;
-		*/
-		//Insert(_lista.AtIndex(1));
-		//Insert(_lista.AtIndex(3));
-		//std::cout << _lista.AtIndex(4 + 1)->GetLetter() << std::endl;
+		_lista.quickSort();
+		const Node* head = _lista.GetHeader();
 		for (int i = 0; i < _lista.Size(); i++)
 		{
-			//std::cout << _lista.AtIndex(i+1)->GetLetter()<<std::endl;
-			Insert(_lista.AtIndex(i));
-			std::cout << "reP" << std::endl;
-			//ListaOdb.AddAtEnd(Lista.AtIndex(i+1)->GetLetter());
+			head= head->GetNext();
+			AddAtEnd(head);
 		}
-		std::cout << "receive" << std::endl;
 	};
 
 
-	void AddAtEnd(const std::string& mess);
+	void AddAtEnd(std::string mess);
+	void AddAtEnd(const Node* _node);
 	void AddAtFront(const std::string& mess);
 	void AddAfter(Node* afterMe, Node* newNode);
 	void AddBefore(Node* newNode, Node* beforeMe)
@@ -48,8 +41,6 @@ public:
 
 	void Insert(Node* newNode)
 	{
-		std::cout << Size() << std::endl;
-
 		Node* head = header;
 		Node* stop = header;
 		if (IsEmpty()) AddAfter(header, newNode);

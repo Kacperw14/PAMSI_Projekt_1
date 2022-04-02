@@ -37,19 +37,23 @@ int List::Size() const
 			//std::cout << head << std::endl;
 			//std::cout << trailer << std::endl;
 		}
-		std::cout << "size" << std::endl;
 		//std::cout << "wylazlem" << std::endl;
 		return size - 1;       //nie liczymy headera
 	}
 }
 
-void List::AddAtEnd(const std::string& mess)
+void List::AddAtEnd(std::string mess)
 {
 	Node* newNode = new Node(mess, 0, trailer->GetPrevious(), trailer);
 	trailer->GetPrevious()->SetNext(newNode);
 	trailer->SetPrevious(newNode);
 	newNode->SetKey((newNode->GetPrevious()->GetKey() + 1));   //Ustalenie klucza
 	//ResetKeys();   //nie mo¿na tak :c
+}
+
+void List::AddAtEnd(const Node* _node)
+{
+	AddAtEnd(_node->GetLetter());
 }
 
 void List::AddAtFront(const std::string& mess)        //ustalanie key + sort()
