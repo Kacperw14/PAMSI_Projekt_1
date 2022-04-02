@@ -1,11 +1,12 @@
 #pragma once
 #include "../Headers/Node.h"
 
+template <typename T>
 class List : Node
 {
 private:
-	Node* header;
-	Node* trailer;
+	T* header;
+	T* trailer;
 
 public:
 
@@ -14,35 +15,91 @@ public:
 	//
 	bool IsEmpty() const;
 	int Size() const;
-	void ReceiveMessage(List _lista)
-	{
-		_lista.quickSort();
-		const Node* head = _lista.GetHeader();
-		for (int i = 0; i < _lista.Size(); i++)
-		{
-			head= head->GetNext();
-			AddAtEnd(head);
-		}
-	};
+
+	void ReceiveMessage(List _lista);
+	
 
 
 	void AddAtEnd(std::string mess);
-	void AddAtEnd(const Node* _node);
+	void AddAtEnd(const T* _node);
 	void AddAtFront(const std::string& mess);
-	void AddAfter(Node* afterMe, Node* newNode);
-	void AddBefore(Node* newNode, Node* beforeMe)
-	{
-		newNode->SetNext(beforeMe);
-		newNode->SetPrevious(beforeMe->GetPrevious());
-		beforeMe->GetPrevious()->SetNext(newNode);
-		beforeMe->SetPrevious(newNode);
-		// ResetKeys();
-	};
+	void AddAfter(T* afterMe, T* newNode);
+	//void AddBefore(T* newNode, T* beforeMe)
+	//{
+	//	newNode->SetNext(beforeMe);
+	//	newNode->SetPrevious(beforeMe->GetPrevious());
+	//	beforeMe->GetPrevious()->SetNext(newNode);
+	//	beforeMe->SetPrevious(newNode);
+	//	// ResetKeys();
+	//};
 
-	void Insert(Node* newNode)
+
+	void PrintList() const;                //Musi to posk³adaæ!!
+	void PrintMessage() const;                //Musi to posk³adaæ!!
+	void ResetKeys();  //???
+	//
+	T* AtIndex(int _key) const;
+	int IndexOf(const std::string& mess) const;              //Iterator
+
+	//
+	const T* GetHeader() const { return header; };
+	const T* GetTrailer() const { return trailer; };
+
+	T* partition(T* h, T* t);
+
+	void _quickSort(T* h, T* t);
+
+	void quickSort();
+		// Call the recursive QuickSort
+	
+
+	/*
+	void SortKeys(List* _list)
 	{
-		Node* head = header;
-		Node* stop = header;
+		T* head = header;
+		T* trail = trailer;
+
+		while (head != trail)
+		{
+			head = head->GetNext();
+			trail = trail->GetPrevious();
+			if (head->GetKey() < trail->GetKey()) head->SwapKeys(trail);
+		}
+		//const Node* pivot = _list->AtIndex(Size() / 2);
+		//std::cout << pivot->GetKey() << std::endl;
+
+		//while (pivot->GetKey() != 1)
+		//{
+		//	if (pivot->GetKey() < pivot->GetPrevious()->GetKey()) pivot = pivot->GetPrevious();
+		//	else pivot = pivot->GetNext();
+
+		//	std::cout << head->GetKey() << std::endl;
+		//	//std::cout << std::endl << Size() << std::endl;
+		//	std::cout << pivot->GetLetter() << std::endl;
+		//}
+	}
+
+
+	int Max()
+	{
+		const T* head = header;
+		int max = 0;
+		if (!IsEmpty()) head = head->GetNext();
+		for (int i = 0; i < Size(); i++)
+		{
+			if (max <= head->GetKey()) max = head->GetKey();
+			if (head->GetNext() != nullptr) head = head->GetNext();
+			//std::cout << i << mess << help->GetLetter() << (mess == help->GetLetter()) << GetKey() << std::endl;
+		}
+		return max;
+	}
+
+	
+
+	void Insert(T* newNode)
+	{
+		T* head = header;
+		T* stop = header;
 		if (IsEmpty()) AddAfter(header, newNode);
 		else
 		{
@@ -63,7 +120,7 @@ public:
 			//AddBefore(newNode, stop);
 			AddAfter(stop, newNode);
 		}
-		/*
+		
 		Node* trail = trailer;//->GetPrevious();
 
 		//if (IsEmpty()) //AddAtEnd(newNode->GetLetter());//
@@ -128,112 +185,8 @@ public:
 			//}
 			//AddBefore(newNode, head);
 		}
-		//while(newNode->GetKey() < head->GetKey()) head = head->GetNext();
-		/*do
-		{
-
-		}
-		while (newNode->GetKey() < trail->GetKey());*/
-
-
+	
 	};
-
-	void PrintList() const;                //Musi to posk³adaæ!!
-	void PrintMessage() const;                //Musi to posk³adaæ!!
-	void ResetKeys();  //???
-	//
-	Node* AtIndex(int _key) const;
-	int IndexOf(const std::string& mess) const;              //Iterator
-
-	//
-	const Node* GetHeader() const { return header; };
-	const Node* GetTrailer() const { return trailer; };
-
-	Node* partition(Node* h, Node* t)
-	{
-		// set pivot as h element
-		int x = t->GetKey();
-
-		// similar to i = l-1 for array implementation
-		Node* i = h->GetPrevious();
-
-		// Similar to "for (int j = l; j <= h- 1; j++)"
-		for (Node* j = h; j != t; j = j->GetNext())
-		{
-			if (j->GetKey() <= x)
-			{
-				// Similar to i++ for array
-				i = (i == NULL) ? h : i->GetNext();
-
-				i->SwapKeys(j);
-				//swap(&(i->GetKey()), &(j->GetKey()));
-			}
-		}
-		i = (i == NULL) ? h : i->GetNext(); // Similar to i++
-		i->SwapKeys(t);
-		//swap(&(i->GetKey()), &(t->GetKey()));
-		return i;
-	}
-
-	void _quickSort(Node* h, Node* t)
-	{
-		if (t != NULL && h != t && h != t->GetNext())
-		{
-			Node* p = partition(h, t);
-			_quickSort(h, p->GetPrevious());
-			_quickSort(p->GetNext(), t);
-		}
-	}
-
-	void quickSort()
-	{
-		// Call the recursive QuickSort
-		_quickSort(header, trailer);
-	}
-
-	void SortKeys(List* _list)
-	{
-		Node* head = header;
-		Node* trail = trailer;
-
-		while (head != trail)
-		{
-			head = head->GetNext();
-			trail = trail->GetPrevious();
-			if (head->GetKey() < trail->GetKey()) head->SwapKeys(trail);
-		}
-		//const Node* pivot = _list->AtIndex(Size() / 2);
-		//std::cout << pivot->GetKey() << std::endl;
-
-		//while (pivot->GetKey() != 1)
-		//{
-		//	if (pivot->GetKey() < pivot->GetPrevious()->GetKey()) pivot = pivot->GetPrevious();
-		//	else pivot = pivot->GetNext();
-
-		//	std::cout << head->GetKey() << std::endl;
-		//	//std::cout << std::endl << Size() << std::endl;
-		//	std::cout << pivot->GetLetter() << std::endl;
-		//}
-	}
-
-
-	int Max()
-	{
-		const Node* head = header;
-		int max = 0;
-		if (!IsEmpty()) head = head->GetNext();
-		for (int i = 0; i < Size(); i++)
-		{
-			if (max <= head->GetKey()) max = head->GetKey();
-			if (head->GetNext() != nullptr) head = head->GetNext();
-			//std::cout << i << mess << help->GetLetter() << (mess == help->GetLetter()) << GetKey() << std::endl;
-		}
-		return max;
-	}
-
-	/*
-
-
 
 
 	const int& Min()

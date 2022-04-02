@@ -1,6 +1,6 @@
 ﻿#include <iostream>
 #include "../Headers/List.h"
-
+#include "../Headers/Node.h"
 using namespace std;
 
 int main()
@@ -8,8 +8,8 @@ int main()
 	//Node N("h");
 	//Node* T = new Node("t");
 	//N.GetPrevious()->SetPrevious(T);
-	List Lista;
-	List ListaOdb;
+	List<Node> Lista;
+	List<Node> ListaOdb;
 	string s;
 	int number = 0;
 

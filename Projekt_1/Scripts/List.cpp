@@ -2,15 +2,16 @@
 #include "../Headers/List.h"
 
 
-
-List::List()
+template <typename T>
+List<T>::List()
 {
-	header = new Node("h", 0, nullptr, nullptr);
-	trailer = new Node("t", 0, header, nullptr);
+	header = new T("h", 0, nullptr, nullptr);
+	trailer = new T("t", 0, header, nullptr);
 	header->SetNext(trailer);
 }
 
-bool List::IsEmpty() const              //bool&
+template <typename T>
+bool List<T>::IsEmpty() const              //bool&
 {
 	if (header->GetNext() == trailer)
 	{
@@ -19,7 +20,8 @@ bool List::IsEmpty() const              //bool&
 	else return false;
 }
 
-int List::Size() const
+template <typename T>
+int List<T>::Size() const
 {
 	//nie liczymy headera
 //std::cout << head << std::endl;
@@ -27,7 +29,7 @@ int List::Size() const
 	else
 	{
 		int size = 0;
-		Node* head = header;
+		T* head = header;
 		//std::cout << header << std::endl;
 		//std::cout << trailer << std::endl;
 		while (head != trailer)
@@ -42,23 +44,26 @@ int List::Size() const
 	}
 }
 
-void List::AddAtEnd(std::string mess)
+template <typename T>
+void List<T>::AddAtEnd(std::string mess)
 {
-	Node* newNode = new Node(mess, 0, trailer->GetPrevious(), trailer);
+	T* newNode = new T(mess, 0, trailer->GetPrevious(), trailer);
 	trailer->GetPrevious()->SetNext(newNode);
 	trailer->SetPrevious(newNode);
 	newNode->SetKey((newNode->GetPrevious()->GetKey() + 1));   //Ustalenie klucza
 	//ResetKeys();   //nie mo¿na tak :c
 }
 
-void List::AddAtEnd(const Node* _node)
+template <typename T>
+void List<T>::AddAtEnd(const T* _node)
 {
 	AddAtEnd(_node->GetLetter());
 }
 
-void List::AddAtFront(const std::string& mess)        //ustalanie key + sort()
+template <typename T>
+void List<T>::AddAtFront(const std::string& mess)        //ustalanie key + sort()
 {
-	Node* newNode = new Node(mess, 0);
+	T* newNode = new T(mess, 0);
 	newNode->SetPrevious(header);
 	newNode->SetNext(header->GetNext());
 	header->GetNext()->SetPrevious(newNode);
@@ -66,7 +71,20 @@ void List::AddAtFront(const std::string& mess)        //ustalanie key + sort()
 	ResetKeys();
 }
 
-void List::AddAfter(Node* afterMe, Node* newNode)
+template<typename T>
+void List<T>::ReceiveMessage(List _lista)
+{
+	_lista.quickSort();
+	const T* head = _lista.GetHeader();
+	for (int i = 0; i < _lista.Size(); i++)
+	{
+		head = head->GetNext();
+		AddAtEnd(head);
+	}
+}
+
+template <typename T>
+void List<T>::AddAfter(T* afterMe, T* newNode)
 {
 	if (afterMe != nullptr)
 	{
@@ -89,9 +107,10 @@ void List::AddAfter(Node* afterMe, Node* newNode)
 //	ResetKeys();
 //}
 
-void List::PrintList() const                //Musi to posk³adaæ!!
+template <typename T>
+void List<T>::PrintList() const                //Musi to posk³adaæ!!
 {
-	Node* head = header;
+	T* head = header;
 	for (int i = 0; i < Size(); i++)
 	{
 		head = head->GetNext();
@@ -99,9 +118,10 @@ void List::PrintList() const                //Musi to posk³adaæ!!
 	}
 }
 
-void List::PrintMessage() const              //Musi to posk³adaæ!!
+template <typename T>
+void List<T>::PrintMessage() const              //Musi to posk³adaæ!!
 {
-	Node* head = header;
+	T* head = header;
 	for (int i = 0; i < Size(); i++)
 	{
 		head = head->GetNext();
@@ -110,10 +130,10 @@ void List::PrintMessage() const              //Musi to posk³adaæ!!
 }
 
 
-
-void List::ResetKeys()
+template <typename T>
+void List<T>::ResetKeys()
 {
-	Node* head = header;
+	T* head = header;
 	for (int i = 0; i < Size(); i++)
 	{
 		head = head->GetNext();      //pomijamy header
@@ -121,9 +141,10 @@ void List::ResetKeys()
 	}
 }
 
-Node* List::AtIndex(int _key) const
+template <typename T>
+T* List<T>::AtIndex(int _key) const
 {
-	Node* head = header;
+	T* head = header;
 	for (int i = 0; i < Size(); i++)          //jeœli lista jest pusta head pozostanie header
 	{
 		std::cout <<Size()<<i<< "index" << head->GetKey()<<_key << std::endl;
@@ -133,10 +154,10 @@ Node* List::AtIndex(int _key) const
 	return header;
 }
 
-
-int List::IndexOf(const std::string& mess) const
+template <typename T>
+int List<T> ::IndexOf(const std::string& mess) const
 {
-	const Node* head = header;
+	const T* head = header;
 
 	for (int i = 0; i < Size(); i++)
 	{
@@ -146,3 +167,49 @@ int List::IndexOf(const std::string& mess) const
 	return 0;
 }
 
+template<typename T>
+T* List<T>::partition(T* h, T* t)
+{
+	// set pivot as h element
+	int x = t->GetKey();
+
+	// similar to i = l-1 for array implementation
+	T* i = h->GetPrevious();
+
+	// Similar to "for (int j = l; j <= h- 1; j++)"
+	for (T* j = h; j != t; j = j->GetNext())
+	{
+		if (j->GetKey() <= x)
+		{
+			// Similar to i++ for array
+			i = (i == NULL) ? h : i->GetNext();
+
+			i->SwapKeys(j);
+			//swap(&(i->GetKey()), &(j->GetKey()));
+		}
+	}
+	i = (i == NULL) ? h : i->GetNext(); // Similar to i++
+	i->SwapKeys(t);
+	//swap(&(i->GetKey()), &(t->GetKey()));
+	return i;
+}
+
+template<typename T>
+void List<T>::_quickSort(T* h, T* t)
+{
+	if (t != NULL && h != t && h != t->GetNext())
+	{
+		T* p = partition(h, t);
+		_quickSort(h, p->GetPrevious());
+		_quickSort(p->GetNext(), t);
+	}
+}
+
+template<typename T>
+void List<T>::quickSort()
+{
+	_quickSort(header, trailer);
+}
+
+template
+class List<Node>;
