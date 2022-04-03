@@ -134,7 +134,7 @@ void List<T>::PrintList() const
 template <typename T>
 void List<T>::PrintMessage() const              //Musi to posk³adaæ!!
 {
-	if (IsEmpty()) std::cout << "Funkcja \"PrintMessage\": Lista jest pusta";
+	if (IsEmpty()) std::cout << "Funkcja \"PrintMessage\": Lista jest pusta" << std::endl;
 	else
 	{
 		T* head = header;
@@ -143,6 +143,7 @@ void List<T>::PrintMessage() const              //Musi to posk³adaæ!!
 			head = head->GetNext();
 			std::cout << head->GetMessage();
 		}
+		std::cout << std::endl;
 	}
 }
 
