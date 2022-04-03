@@ -36,12 +36,12 @@ int main()
 	//cout << "Index: " << Lista.AtIndex(0)->GetMessage() << endl;
 	//Lista.Remove(Lista.GetHeader()->GetNext());
 
-	//cout << Lista.AtIndex(1)<<endl;
+	//cout << Lista.AtIndex(1)->GetMessage()<<endl;
 
 
 	//ListaOdb.AtIndex(0);
 
-	//ListaOdb.ReceiveMessage(Lista);
+	ListaOdb.ReceiveMessage(Lista);
 	ListaOdb.PrintList();
 	ListaOdb.PrintMessage();
 

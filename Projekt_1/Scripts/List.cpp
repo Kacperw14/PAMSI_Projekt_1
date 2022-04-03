@@ -111,12 +111,12 @@ void List<T>::Insert(T* _node)
 	else
 	{
 		Node* head = header->GetNext(); //nie liczymy header'a, jesli IsEmpty != true to header->GetNext() istnieje
-		int index = 0;
+		Node* index = head;
 		for (int i = 0; i < Size(); i++)
 		{
-			if (_node->GetKey() >= head->GetKey()) index = head->GetKey();
+			if (_node->GetKey() >= head->GetKey()) index = head;
 		}
-		AddAfter(AtIndex(index), _node);
+		AddAfter(index, _node);
 	}
 }
 
@@ -176,19 +176,18 @@ const int List<T>::Min() const
 }
 
 template <typename T>
-T* List<T>::AtIndex(int _key) const
+const T* List<T>::AtIndex(int _key) const
 {
-	if (IsEmpty() || _key < 0)	throw "Index musi istniec"; //return header;
+	if (IsEmpty() || _key < 0)	throw "Index musi istniec";
 	else
 	{
 		T* head = header->GetNext();
-		for (int i = 0; i < Size(); i++)          //jeœli lista jest pusta head pozostanie header
+		for (int i = 0; i < Size(); i++)
 		{
-			//std::cout << Size() << i << "index" << head->GetKey() << _key << std::endl;
 			if (head->GetKey() == _key) return head;
-			else head = head->GetNext();                //w tej kolejnoœci aby pomin¹æ header
+			else head = head->GetNext();
 		}
-		throw "Index musi istniec"; //return header; //throw "Index musi istniec"; //return header;
+		return header;//throw "Index musi istniec";
 	}
 }
 
@@ -209,32 +208,33 @@ const int List<T> ::IndexOf(const std::string mess) const
 }
 
 template<typename T>
-T* List<T>::Separate(T* h, T* t)
+T* List<T>::Separate(T* left, T* right)
 {
-	int x = t->GetKey();
-	T* i = h->GetPrevious();
-	for (T* j = h; j != t; j = j->GetNext())
+	int help = right->GetKey();
+	T* i = left->GetPrevious();
+	for (T* j = left; j != right; j = j->GetNext())
 	{
-		if (j->GetKey() <= x)
+		if (j->GetKey() <= help)
 		{
-			i = (i == NULL) ? h : i->GetNext();
-
+			if (i == nullptr) i = left;
+			else i->GetNext();
 			i->SwapKeys(j);
 		}
 	}
-	i = (i == NULL) ? h : i->GetNext();
-	i->SwapKeys(t);
+	i = (i == nullptr) ? left : i->GetNext();
+
+	i->SwapKeys(right);
 	return i;
 }
 
 template<typename T>
-void List<T>::PreparatoryQuickSort(T* h, T* t)
+void List<T>::PreparatoryQuickSort(T* left, T* right)
 {
-	if (t != nullptr && h != t && h != t->GetNext())
+	if (left != right && left != right->GetNext())
 	{
-		T* p = Separate(h, t);
-		PreparatoryQuickSort(h, p->GetPrevious());
-		PreparatoryQuickSort(p->GetNext(), t);
+		T* pivot = Separate(left, right);
+		PreparatoryQuickSort(left, pivot->GetPrevious());
+		PreparatoryQuickSort(pivot->GetNext(), right);
 	}
 }
 
