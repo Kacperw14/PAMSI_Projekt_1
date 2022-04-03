@@ -9,14 +9,7 @@ int main()
 	List<Node> ListaOdbiorcza;
 	string s;
 	char choice = 'm';
-	//string p;
-	//while (cin.peek() != ' ')
-	//{
-	//	s = cin.get();
-	//	p = p + s;
-	//}
-	//cout << p << endl;
-	//Lista.AddAtEnd(p);
+
 	while (choice != 'k')
 	{
 		switch (choice)
@@ -37,13 +30,12 @@ int main()
 		case 'n':
 		{
 			string p;
-			if (cin.peek() == '\n') cin.ignore();//cin.unget();
-			//if(!Lista.IsEmpty()) Lista.AddAtEnd(" ");
+			if (cin.peek() == '\n') cin.ignore();
 			do
 			{
 				cin >> s;
 				Lista.AddAtEnd(s);
-			} while (cin.peek() != '\n'); //"k"); //'\n' się zapisuje Lista.removeEnd();
+			} while (cin.peek() != '\n');
 			cout << "Wiadomosc wyslana pomyslnie" << endl;
 		}
 		break;
