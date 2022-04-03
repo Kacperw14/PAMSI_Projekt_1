@@ -123,11 +123,15 @@ void List<T>::Insert(T* _node)
 template <typename T>
 void List<T>::PrintList() const
 {
-	T* head = header;
-	for (int i = 0; i < Size(); i++)
+	if (IsEmpty()) std::cout << "Funkcja \"PrintList\": Lista jest pusta" << std::endl;
+	else
 	{
-		head = head->GetNext();
-		std::cout << head->GetMessage() << head->GetKey() << std::endl;
+		T* head = header;
+		for (int i = 0; i < Size(); i++)
+		{
+			head = head->GetNext();
+			std::cout << head->GetMessage() << head->GetKey() << std::endl;
+		}
 	}
 }
 

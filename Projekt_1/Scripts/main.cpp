@@ -27,65 +27,45 @@ int main()
 			cout << "Wybierz \'m\' aby zobaczyc menu" << endl;
 			cout << "Wybierz \'n\' aby napisac wiadomosc" << endl;
 			cout << "Wybierz \'w\' aby wyslac wiadomosc" << endl;
-			cout << "Wybierz \'d\' aby wydrukowac wiadomosc" << endl;
-			cout << "Wybierz \'o\' aby odebrac wiadomosc" << endl;
+			cout << "Wybierz \'d\' aby wydrukowac sekwencje wiadomosci" << endl;
 			cout << "Wybierz \'u\' aby usunac wybrana wiadomosc" << endl;
 			cout << "Wybierz \'e\' aby edytowac wiadomosc" << endl;
 			cout << "Wybierz \'k\' aby wyjsc" << endl;
-			cout << " ________________________________ " << "   ______________________________" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl;
 		}
 		break;
 
 		case 'n':
 		{
-			cin.ignore();
-			cin.unget();
 			string p;
-			int counter = 0;
+			if (cin.peek() == '\n') cin.ignore();//cin.unget();
+			//if(!Lista.IsEmpty()) Lista.AddAtEnd(" ");
 			do
 			{
-				while (s != " ")
-				{
-				s = cin.get();
-				p += s;
-				}
-				//cin.clear();
-				Lista.AddAtEnd(p);
-				counter++;
+				cin >> s;
+				Lista.AddAtEnd(s);
 			} while (cin.peek() != '\n'); //"k"); //'\n' się zapisuje Lista.removeEnd();
-			cout << "Wiadomosc zostala poprawnie wyslana" << endl; //" << "'\'" <<s<< "'\'" << "
-			cout << " ________________________________ " << "   ______________________________" << endl
-				<< "| " << p                            << "  |..............................| " << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl
-				<< "|................................|" << "  |..............................|" << endl;
-
+			cout << "Wiadomosc wyslana pomyslnie" << endl;
 		}
-		break;
+		break;	
 
-		case 'o':
+		case 'w':
 		{
 			ListaOdbiorcza.ReceiveMessage(Lista);
+			cout << "Wyslana: ";
+			ListaOdbiorcza.PrintMessage();
+
 		}
 		break;
 
 		case 'd':
 		{
-			Lista.PrintMessage();
+			Lista.PrintList();
+		}
+		break;
+
+		case 'u':
+		{
+			Lista.Remove(Lista.Last());
 		}
 		break;
 
