@@ -15,7 +15,7 @@ public:
 	// Podstaowe funkcje dla listy:
 	const bool IsEmpty() const;
 	const int Size() const;
-	const T* AtIndex(int _key) const;
+	T* AtIndex(int _key) const;
 	const int IndexOf(const std::string mess) const;              //Iterator
 
 

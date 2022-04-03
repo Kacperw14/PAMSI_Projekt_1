@@ -46,12 +46,12 @@ int main()
 			} while (cin.peek() != '\n'); //"k"); //'\n' się zapisuje Lista.removeEnd();
 			cout << "Wiadomosc wyslana pomyslnie" << endl;
 		}
-		break;	
+		break;
 
 		case 'w':
 		{
 			ListaOdbiorcza.ReceiveMessage(Lista);
-			cout << "Wyslana: ";
+			cout << "Wyslano: ";
 			ListaOdbiorcza.PrintMessage();
 
 		}
@@ -65,7 +65,53 @@ int main()
 
 		case 'u':
 		{
-			Lista.Remove(Lista.Last());
+			int index;
+			cout << "Ktora wiadomosc usunac lub wpisz 0 aby wrocic do menu: " << endl;
+			Lista.PrintList();
+			cin >> index;
+			if (!cin.good() || index == 0)
+			{
+				cin.clear();
+				cin.ignore();
+				cout << "Powrot do menu" << endl;
+			}
+			else
+			{
+				if (Lista.AtIndex(index) != nullptr)
+				{
+					cout << "Wiadomosc usunieta pomyslnie" << endl;
+					Lista.Remove(Lista.AtIndex(index));
+				}
+				else cout << "Nie udalo sie usunac widomosci" << endl;
+			}
+		}
+		break;
+
+		case 'e':
+		{
+			int index;
+			cout << "Wybierz ktora wiadomosc edytowac lub wpisz 0 aby wrocic do menu: " << endl;
+			Lista.PrintList();
+			cin >> index;
+			if (!cin.good() || index == 0)
+			{
+				cin.clear();
+				cin.ignore();
+				cout << "Powrot do menu" << endl;
+			}
+			else
+			{
+				string _editnode;
+				if (Lista.AtIndex(index) != nullptr)
+				{
+					cout << "Edytuj wiadomosc: \"" << Lista.AtIndex(index)->GetMessage() << "\"" << endl;
+					cin >> _editnode;
+					cout << "Wiadomosc pomyslnie edytowana" << endl;
+					Lista.Remove(Lista.AtIndex(index));
+					Lista.Insert(new Node(_editnode, index));
+				}
+				else cout << "Nie udalo sie edytowac widomosci" << endl;
+			}
 		}
 		break;
 
@@ -75,12 +121,7 @@ int main()
 		}
 		break;
 		}
-
 		cin >> choice;
 	}
-
-
-	//Lista.PrintList();
-
 	return 0;
 }//MAIN

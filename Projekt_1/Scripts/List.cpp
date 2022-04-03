@@ -130,7 +130,7 @@ void List<T>::PrintList() const
 		for (int i = 0; i < Size(); i++)
 		{
 			head = head->GetNext();
-			std::cout << head->GetMessage() << head->GetKey() << std::endl;
+			std::cout << head->GetMessage() << " (nr wiadomosci: "<< head->GetKey() << ")" << std::endl;
 		}
 	}
 }
@@ -181,7 +181,7 @@ const int List<T>::Min() const
 }
 
 template <typename T>
-const T* List<T>::AtIndex(int _key) const
+ T* List<T>::AtIndex(int _key) const
 {
 	if (IsEmpty() || _key < 0)	throw "Index musi istniec";
 	else
@@ -192,7 +192,7 @@ const T* List<T>::AtIndex(int _key) const
 			if (head->GetKey() == _key) return head;
 			else head = head->GetNext();
 		}
-		return header;//throw "Index musi istniec";
+		return nullptr;//throw "Index musi istniec";
 	}
 }
 
