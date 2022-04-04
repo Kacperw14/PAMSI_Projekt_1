@@ -51,13 +51,13 @@ const int Node::GetKey() const
 
 Node* Node::GetNext() const
 {
-	if (this == nullptr) std::cout << "Funkcja \"GetNext:\": otrzymala nullptr" << std::endl; //throw nullptr;   //Exception
+	if (this == nullptr) throw "Funkcja \"GetNext:\": otrzymala nullptr";
 	else return next;
 }
 
 Node* Node::GetPrevious() const
 {
-	if (this == nullptr) std::cout << "Funkcja \"GetPrevious:\": otrzymala nullptr" << std::endl;//throw nullptr;
+	if (this == nullptr) throw "Funkcja \"GetPrevious:\": otrzymala nullptr";
 	else return previous;
 }
 
