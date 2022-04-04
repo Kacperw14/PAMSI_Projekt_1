@@ -7,16 +7,15 @@ int main()
 {
 	ifstream test;
 	test.open("test.txt");
-	//if (test.good()) cout << "gra" << endl;
 	List<Node> Lista;
 	List<Node> ListaTymczasowa;
 	List<Node> ListaOdbiorcza;
 	string s;
 	string p;
-	char choice = 'm';
+	char choice = 'n';
 
-	while (choice != 'k')
-	{
+	//while ()//choice != 'k')
+	//{
 		switch (choice)
 		{
 		case 'm':
@@ -40,16 +39,19 @@ int main()
 				//cin.ignore();
 				test.ignore();
 			}
-			do
-			{
-				test >> s;
+			//do
+			//{
+				for (int i = 0; i < 3000; i++)
+				{
+					ListaTymczasowa.AddAtEnd(s);
+					Lista.Insert(ListaTymczasowa.Last());
+					test >> s;
+				}
 				//cin >> s;
-				ListaTymczasowa.AddAtEnd(s);
-				Lista.Insert(ListaTymczasowa.Last());
-				ListaTymczasowa.AddAtEnd(" ");
-				Lista.Insert(ListaTymczasowa.Last());
+				//ListaTymczasowa.AddAtEnd(" ");
+				//Lista.Insert(ListaTymczasowa.Last());
 
-			} while (test.peek() != '\n');//cin.peek() != '\n');
+			//} while (test.peek() != '\n');//cin.peek() != '\n');
 			cout << "Wiadomosc zapisana pomyslnie" << endl;
 		}
 		break;
@@ -156,10 +158,9 @@ int main()
 		break;
 		}
 		//cin >> choice;
-		test >> choice;
-	}
+		//test >> choice;
+	//}
 
 	test.close();         //zamknij plik
-	//cin >> s;
 	return 0;
 }//MAIN
