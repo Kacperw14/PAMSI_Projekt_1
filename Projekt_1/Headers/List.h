@@ -39,8 +39,7 @@ public:
 
 	void PrintList() const;                //Musi to posk³adaæ!!
 	void PrintMessage() const;                //Musi to posk³adaæ!!
-	void ResetKeys();  //???
-	//
+
 	const int Min() const;
 
 	const T* GetHeader() const { return header; };

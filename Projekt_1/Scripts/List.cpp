@@ -76,16 +76,18 @@ void List<T>::AddAtFront(const std::string& mess)        //ustalanie key + sort(
 	T* newNode = new T(mess, 0, header, header->GetNext());
 	header->GetNext()->SetPrevious(newNode);
 	header->SetNext(newNode);
-	ResetKeys();
 }
 
 template <typename T>
-void List<T>::AddAfter(T* afterMe, T* newNode)
+void List<T>::AddAfter(T* afterMe, T* _node)
 {
+
 	if (afterMe != nullptr)
 	{
-		newNode->SetPrevious(afterMe);
-		newNode->SetNext(afterMe->GetNext());
+		T* newNode = new T(_node->GetMessage(), _node->GetKey(), afterMe, afterMe->GetNext());
+		//std::cout<<newNode->GetKey()<<std::endl;
+		//newNode->SetPrevious(afterMe);
+		//newNode->SetNext(afterMe->GetNext());
 		afterMe->GetNext()->SetPrevious(newNode);
 		afterMe->SetNext(newNode);
 	}
@@ -107,16 +109,23 @@ void List<T>::Remove(T* _node)
 template<typename T>
 void List<T>::Insert(T* _node)
 {
-	if (IsEmpty()) AddAfter(header, _node);
+	if (IsEmpty()) AddAtEnd(_node);//AddAfter(header, _node);
 	else
 	{
+		//std::cout << Size() << std::endl;
 		Node* head = header->GetNext(); //nie liczymy header'a, jesli IsEmpty != true to header->GetNext() istnieje
 		Node* index = head;
 		for (int i = 0; i < Size(); i++)
 		{
+			
 			if (_node->GetKey() >= head->GetKey()) index = head;
+			
+			if(head->GetKey() != 0) head = head->GetNext();
+			
+			
 		}
 		AddAfter(index, _node);
+		//AddAtEnd(_node);
 	}
 }
 
@@ -130,7 +139,7 @@ void List<T>::PrintList() const
 		for (int i = 0; i < Size(); i++)
 		{
 			head = head->GetNext();
-			std::cout << head->GetMessage() << " (nr wiadomosci: "<< head->GetKey() << ")" << std::endl;
+			std::cout << head->GetMessage() << " (nr wiadomosci: " << head->GetKey() << ")" << std::endl;
 		}
 	}
 }
@@ -148,18 +157,6 @@ void List<T>::PrintMessage() const              //Musi to posk³adaæ!!
 			std::cout << head->GetMessage();
 		}
 		std::cout << std::endl;
-	}
-}
-
-
-template <typename T>
-void List<T>::ResetKeys()
-{
-	T* head = header;
-	for (int i = 0; i < Size(); i++)
-	{
-		head = head->GetNext();      //pomijamy header
-		head->SetKey(i + 1);           // i+1 aby paczki mia³y klucze > 0 (tylko header i trailer maj¹ klucz 0)
 	}
 }
 
@@ -181,7 +178,7 @@ const int List<T>::Min() const
 }
 
 template <typename T>
- T* List<T>::AtIndex(int _key) const
+T* List<T>::AtIndex(int _key) const
 {
 	if (IsEmpty() || _key < 0)	throw "Index musi istniec";
 	else
