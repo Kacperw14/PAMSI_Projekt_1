@@ -43,12 +43,11 @@ void List<T>::ReceiveMessage(List _lista)
 	if (_lista.IsEmpty()) std::cout << "Funkcja \"ReceiveMessage\": Lista jest pusta" << std::endl;
 	else
 	{
-		//_lista.QuickSort();
 		const T* head = _lista.GetHeader();
-		for (int i = 0; i < _lista.Size(); i++)
+		for (int i = (_lista.GetHeader()->GetNext()->GetKey()); i <= _lista.Max(); i++)
 		{
+			Insert(_lista.AtIndex(i));
 			head = head->GetNext();
-			AddAtEnd(head);
 		}
 	}
 }
@@ -64,18 +63,9 @@ void List<T>::AddAtEnd(std::string mess)
 template <typename T>
 void List<T>::AddAtEnd(const T* _node)
 {
-	//AddAtEnd(_node->GetLetter());
 	T* newNode = new T(_node->GetMessage(), (_node->GetKey() + 1), trailer->GetPrevious(), trailer);
 	trailer->GetPrevious()->SetNext(newNode);
 	trailer->SetPrevious(newNode);
-}
-
-template <typename T>
-void List<T>::AddAtFront(const std::string& mess)        //ustalanie key + sort()
-{
-	T* newNode = new T(mess, 0, header, header->GetNext());
-	header->GetNext()->SetPrevious(newNode);
-	header->SetNext(newNode);
 }
 
 template <typename T>
@@ -88,7 +78,7 @@ void List<T>::AddAfter(T* afterMe, T* _node)
 		afterMe->GetNext()->SetPrevious(newNode);
 		afterMe->SetNext(newNode);
 	}
-	else throw "Nale¿y podaæ inne parametry ni¿ nulltr"; //???
+	else throw "Nale¿y podaæ inne parametry ni¿ nulltr";
 }
 
 template<typename T>
@@ -100,7 +90,7 @@ void List<T>::Remove(T* _node)
 		_node->GetPrevious()->SetNext(_node->GetNext());
 		delete _node;
 	}
-	else std::cout << "Funkcja \"Remove\": Nie mozna usunac nullptr, header ani trailer" << std::endl;//throw
+	else std::cout << "Funkcja \"Remove\": Nie mozna usunac nullptr, header ani trailer" << std::endl;
 }
 
 template<typename T>
@@ -121,6 +111,15 @@ void List<T>::Insert(T* _node)
 
 		}
 		AddAfter(index, _node);
+	}
+}
+
+template<typename T>
+void List<T>::ClearList()
+{
+	while (!IsEmpty())
+	{
+		Remove(Last());
 	}
 }
 
@@ -172,6 +171,23 @@ const int List<T>::Min() const
 	}
 }
 
+template<typename T>
+const int List<T>::Max() const
+{
+	if (IsEmpty()) return 0;
+	else
+	{
+		Node* help = header;
+		int max = 1;
+		for (int i = 0; i < Size(); i++)
+		{
+			help = help->GetNext();                        //Nastepujaca kolejnosc by pominac header
+			if (max < help->GetKey()) max = help->GetKey();
+		}
+		return max;
+	}
+}
+
 template <typename T>
 T* List<T>::AtIndex(int _key) const
 {
@@ -184,7 +200,9 @@ T* List<T>::AtIndex(int _key) const
 			if (head->GetKey() == _key) return head;
 			else head = head->GetNext();
 		}
-		return nullptr;//throw "Index musi istniec";
+
+		std::cout << "Funkcja \"AtIndex\":Nie ma takiego indexu" << std::endl;
+		return nullptr;
 	}
 }
 
@@ -202,43 +220,6 @@ const int List<T> ::IndexOf(const std::string mess) const
 		}
 		return 0;
 	}
-}
-
-template<typename T>
-T* List<T>::Separate(T* left, T* right)
-{
-	int help = right->GetKey();
-	T* i = left->GetPrevious();
-	for (T* j = left; j != right; j = j->GetNext())
-	{
-		if (j->GetKey() <= help)
-		{
-			if (i == nullptr) i = left;
-			else i->GetNext();
-			i->SwapKeys(j);
-		}
-	}
-	i = (i == nullptr) ? left : i->GetNext();
-
-	i->SwapKeys(right);
-	return i;
-}
-
-template<typename T>
-void List<T>::PreparatoryQuickSort(T* left, T* right)
-{
-	if (left != right && left != right->GetNext())
-	{
-		T* pivot = Separate(left, right);
-		PreparatoryQuickSort(left, pivot->GetPrevious());
-		PreparatoryQuickSort(pivot->GetNext(), right);
-	}
-}
-
-template<typename T>
-void List<T>::QuickSort()
-{
-	PreparatoryQuickSort(header, trailer);
 }
 
 template

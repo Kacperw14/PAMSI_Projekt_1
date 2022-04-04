@@ -36,17 +36,7 @@ Node::~Node()
 {
 	next = nullptr;
 	previous = nullptr;
-	//std::cout << "Usunieto node" << std::endl;
 }
-
-//Node::Node(Node* newNode)             //Po co?
-//{
-//	message = newNode->GetLetter();
-//	key = newNode->GetKey();
-//	next = newNode->GetNext();
-//	previous = newNode->GetPrevious();
-//}
-
 const std::string Node::GetMessage() const
 {
 	if (this == nullptr) return "0";
@@ -81,18 +71,7 @@ void Node::SetPrevious(Node* newNode)
 	if (this == nullptr)  std::cout << "Funkcja \"SetPrevious:\": otrzymala nullptr" << std::endl; //throw nullptr;
 	else previous = newNode;
 }
-void Node::SetKey(int _key)                  //??????????
-{
-	if (_key < 0) key = 0;
-	else key = _key;
-}
 
-void Node::SwapKeys(Node* _node)
-{
-	int k = GetKey();
-	SetKey(_node->GetKey());
-	_node->SetKey(k);
-}
 
 
 

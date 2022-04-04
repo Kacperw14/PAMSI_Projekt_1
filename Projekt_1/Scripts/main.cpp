@@ -44,7 +44,7 @@ int main()
 				Lista.Insert(ListaTymczasowa.Last());
 
 			} while (cin.peek() != '\n');
-			cout << "Wiadomosc wyslana pomyslnie" << endl;
+			cout << "Wiadomosc zapisana pomyslnie" << endl;
 		}
 		break;
 
@@ -61,7 +61,7 @@ int main()
 			ListaOdbiorcza.ReceiveMessage(Lista);
 			cout << "Wyslano: ";
 			ListaOdbiorcza.PrintMessage();
-
+			Lista.ClearList();
 		}
 		break;
 
@@ -137,6 +137,7 @@ int main()
 		default:
 		{
 			cout << "Niepoprawne polecenie" << endl;
+			cin.ignore(10000, '\n');
 		}
 		break;
 		}
