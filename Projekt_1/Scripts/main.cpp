@@ -1,9 +1,13 @@
 ﻿#include <iostream>
+#include <fstream>
 #include "../Headers/List.h"
 using namespace std;
 
 int main()
 {
+	ifstream test;
+	test.open("test.txt");
+	//if (test.good()) cout << "gra" << endl;
 	List<Node> Lista;
 	List<Node> ListaTymczasowa;
 	List<Node> ListaOdbiorcza;
@@ -31,19 +35,21 @@ int main()
 
 		case 'n':
 		{
-			if (cin.peek() == '\n')
+			if (test.peek() == '\n')//cin.peek() == '\n')
 			{
-				cin.ignore();
+				//cin.ignore();
+				test.ignore();
 			}
 			do
 			{
-				cin >> s;
+				test >> s;
+				//cin >> s;
 				ListaTymczasowa.AddAtEnd(s);
 				Lista.Insert(ListaTymczasowa.Last());
 				ListaTymczasowa.AddAtEnd(" ");
 				Lista.Insert(ListaTymczasowa.Last());
 
-			} while (cin.peek() != '\n');
+			} while (test.peek() != '\n');//cin.peek() != '\n');
 			cout << "Wiadomosc zapisana pomyslnie" << endl;
 		}
 		break;
@@ -80,12 +86,15 @@ int main()
 				int index;
 				cout << "Ktora wiadomosc usunac lub wpisz 0 aby wrocic do menu: " << endl;
 				Lista.PrintList();
-				cin >> index;
+				test >> index;
+				//cin >> index;
 				if (!cin.good())
 				{
 					cout << "Nie udalo sie usunac widomosci" << endl;
-					cin.clear();
-					cin.ignore();
+					//cin.clear();
+					//cin.ignore();
+					test.clear();
+					test.ignore();
 				}
 				else if (index == 0) cout << "Powrot do menu" << endl;
 				else
@@ -109,12 +118,15 @@ int main()
 				int index;
 				cout << "Wybierz ktora wiadomosc edytowac lub wpisz 0 aby wrocic do menu: " << endl;
 				Lista.PrintList();
-				cin >> index;
-				if (!cin.good())
+				test >> index;
+				//cin >> index;
+				if (!test.good())//cin.good())
 				{
 					cout << "Nie udalo sie edytowac widomosci" << endl;
-					cin.clear();
-					cin.ignore();
+					//cin.clear();
+					//cin.ignore();
+					test.clear();
+					test.ignore();
 				}
 				else if (index == 0) cout << "Powrot do menu" << endl;
 				else
@@ -123,7 +135,8 @@ int main()
 					if (Lista.AtIndex(index) != nullptr)
 					{
 						cout << "Edytuj wiadomosc: \"" << Lista.AtIndex(index)->GetMessage() << "\"" << endl;
-						cin >> _editnode;
+						test >> _editnode;
+						//cin >> _editnode;
 						cout << "Wiadomosc pomyslnie edytowana" << endl;
 						Lista.Remove(Lista.AtIndex(index));
 						Lista.Insert(new Node(_editnode, index));
@@ -137,11 +150,15 @@ int main()
 		default:
 		{
 			cout << "Niepoprawne polecenie" << endl;
-			cin.ignore(10000, '\n');
+			//cin.ignore(10000, '\n');
+			test.ignore(10000, '\n');
 		}
 		break;
 		}
-		cin >> choice;
+		//cin >> choice;
+		test >> choice;
 	}
+
+	test.close();         //zamknij plik
 	return 0;
 }//MAIN
