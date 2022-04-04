@@ -43,7 +43,7 @@ void List<T>::ReceiveMessage(List _lista)
 	if (_lista.IsEmpty()) std::cout << "Funkcja \"ReceiveMessage\": Lista jest pusta" << std::endl;
 	else
 	{
-		_lista.QuickSort();
+		//_lista.QuickSort();
 		const T* head = _lista.GetHeader();
 		for (int i = 0; i < _lista.Size(); i++)
 		{

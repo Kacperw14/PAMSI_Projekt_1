@@ -28,7 +28,13 @@ public:
 
 	void Remove(T* _node);
 	void Insert(T* _node);
-
+	void ClearList()
+	{
+		while (!IsEmpty())
+		{
+			Remove(Last());
+		}
+	}
 	T* Last() const { return trailer->GetPrevious(); };
 
 	void PrintList() const;                //Musi to posk³adaæ!!
