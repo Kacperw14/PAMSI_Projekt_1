@@ -85,9 +85,6 @@ void List<T>::AddAfter(T* afterMe, T* _node)
 	if (afterMe != nullptr)
 	{
 		T* newNode = new T(_node->GetMessage(), _node->GetKey(), afterMe, afterMe->GetNext());
-		//std::cout<<newNode->GetKey()<<std::endl;
-		//newNode->SetPrevious(afterMe);
-		//newNode->SetNext(afterMe->GetNext());
 		afterMe->GetNext()->SetPrevious(newNode);
 		afterMe->SetNext(newNode);
 	}
@@ -109,23 +106,21 @@ void List<T>::Remove(T* _node)
 template<typename T>
 void List<T>::Insert(T* _node)
 {
-	if (IsEmpty()) AddAtEnd(_node);//AddAfter(header, _node);
+	if (IsEmpty()) AddAfter(header, _node);
 	else
 	{
-		//std::cout << Size() << std::endl;
 		Node* head = header->GetNext(); //nie liczymy header'a, jesli IsEmpty != true to header->GetNext() istnieje
 		Node* index = head;
 		for (int i = 0; i < Size(); i++)
 		{
-			
+
 			if (_node->GetKey() >= head->GetKey()) index = head;
-			
-			if(head->GetKey() != 0) head = head->GetNext();
-			
-			
+
+			if (head->GetKey() != 0) head = head->GetNext();
+
+
 		}
 		AddAfter(index, _node);
-		//AddAtEnd(_node);
 	}
 }
 
@@ -145,7 +140,7 @@ void List<T>::PrintList() const
 }
 
 template <typename T>
-void List<T>::PrintMessage() const              //Musi to posk³adaæ!!
+void List<T>::PrintMessage() const
 {
 	if (IsEmpty()) std::cout << "Funkcja \"PrintMessage\": Lista jest pusta" << std::endl;
 	else

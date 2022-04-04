@@ -39,13 +39,9 @@ int main()
 			{
 				cin >> s;
 				ListaTymczasowa.AddAtEnd(s);
-				//Lista.AddAtEnd(ListaTymczasowa.Last());
-				//ListaTymczasowa.PrintList();
-				//cout << ListaTymczasowa.GetHeader()->GetNext()->GetNext()->GetKey()<<endl;
 				Lista.Insert(ListaTymczasowa.Last());
-				//Lista.PrintList();
-				//ListaTymczasowa.AddAtEnd(" ");
-				//Lista.AddAtEnd(ListaTymczasowa.Last());
+				ListaTymczasowa.AddAtEnd(" ");
+				Lista.Insert(ListaTymczasowa.Last());
 
 			} while (cin.peek() != '\n');
 			cout << "Wiadomosc wyslana pomyslnie" << endl;
