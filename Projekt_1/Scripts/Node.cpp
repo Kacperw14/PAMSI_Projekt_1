@@ -51,24 +51,24 @@ const int Node::GetKey() const
 
 Node* Node::GetNext() const
 {
-	if (this == nullptr) std::cout << "Funkcja \"GetNext:\": otrzymala nullptr" << std::endl; //throw nullptr;   //Exception
+	if (this == nullptr) std::cout << "Funkcja \"GetNext:\": otrzymala nullptr" << std::endl;
 	else return next;
 }
 
 Node* Node::GetPrevious() const
 {
-	if (this == nullptr) std::cout << "Funkcja \"GetPrevious:\": otrzymala nullptr" << std::endl;//throw nullptr;
+	if (this == nullptr) std::cout << "Funkcja \"GetPrevious:\": otrzymala nullptr" << std::endl;
 	else return previous;
 }
 
 void Node::SetNext(Node* newNode)
 {
-	if (this == nullptr)  std::cout << "Funkcja \"SetNext:\": otrzymala nullptr" << std::endl;//throw nullptr;
+	if (this == nullptr)  std::cout << "Funkcja \"SetNext:\": otrzymala nullptr" << std::endl;
 	else next = newNode;
 }
 void Node::SetPrevious(Node* newNode)
 {
-	if (this == nullptr)  std::cout << "Funkcja \"SetPrevious:\": otrzymala nullptr" << std::endl; //throw nullptr;
+	if (this == nullptr)  std::cout << "Funkcja \"SetPrevious:\": otrzymala nullptr" << std::endl;
 	else previous = newNode;
 }
 

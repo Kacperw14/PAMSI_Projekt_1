@@ -160,5 +160,6 @@ int main()
 	}
 
 	test.close();         //zamknij plik
+	//cin >> s;
 	return 0;
 }//MAIN
