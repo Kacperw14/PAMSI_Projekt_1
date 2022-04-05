@@ -11,10 +11,7 @@ int main()
 	string s;
 	string p;
 	char choice = 'm';   //przypisanie zmiennej wartosci 'm' pozwala na wyswietlenie menu w pierwszej kolejnosci.
-
-	ListaOdbiorcza.ReceiveMessage(Lista);
-	ListaOdbiorcza.PrintList();
-
+	
 	while (choice != 'k')
 	{
 		switch (choice)
