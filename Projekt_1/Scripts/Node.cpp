@@ -32,43 +32,46 @@ Node::Node(const Node& newNode)
 	previous = newNode.GetPrevious();
 }
 
+//Destruktor jest pomocny przy kontroli wycieku pamieci
 Node::~Node()
 {
 	next = nullptr;
 	previous = nullptr;
 }
-const std::string Node::GetMessage() const
+
+const std::string& Node::GetMessage() const
 {
 	if (this == nullptr) return "0";
 	else return message;
 }
 
-const int Node::GetKey() const
+const int& Node::GetKey() const
 {
 	if (this == nullptr) return 0;
 	else return key;
 }
 
+
 Node* Node::GetNext() const
-{
-	if (this == nullptr) std::cout << "Funkcja \"GetNext:\": otrzymala nullptr" << std::endl; //throw nullptr;   //Exception
+{ 
+	if (this == nullptr) throw nullptr; //Aby zapobiec probie dostepu do nieobslugiwanej pamieci uzyto wyjatku
 	else return next;
 }
 
 Node* Node::GetPrevious() const
 {
-	if (this == nullptr) std::cout << "Funkcja \"GetPrevious:\": otrzymala nullptr" << std::endl;//throw nullptr;
+	if (this == nullptr) throw nullptr; //Aby zapobiec probie dostepu do nieobslugiwanej pamieci uzyto wyjatku
 	else return previous;
 }
 
 void Node::SetNext(Node* newNode)
 {
-	if (this == nullptr)  std::cout << "Funkcja \"SetNext:\": otrzymala nullptr" << std::endl;//throw nullptr;
+	if (this == nullptr)  std::cout << "Funkcja \"SetNext:\": otrzymala nullptr" << std::endl;
 	else next = newNode;
 }
 void Node::SetPrevious(Node* newNode)
 {
-	if (this == nullptr)  std::cout << "Funkcja \"SetPrevious:\": otrzymala nullptr" << std::endl; //throw nullptr;
+	if (this == nullptr)  std::cout << "Funkcja \"SetPrevious:\": otrzymala nullptr" << std::endl;
 	else previous = newNode;
 }
 

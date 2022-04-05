@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>           //!
+#include <iostream>
 #include <string>
 
 class Node
@@ -15,26 +15,23 @@ public:
 
 	//Konstruktory
 	Node();
-	Node(std::string _message, int _key);  //key
+	Node(std::string _message, int _key);
 	Node(std::string _mess, int _key, Node* _previous, Node* _next);
-	Node(const Node& newNode); 	                                     //Konstruktor kopiuj¹cy
-	//Node(Node* newNode); 	                                     //Konstruktor kopiuj¹cy
+	//Konstruktor kopiuj¹cy
+	Node(const Node& newNode); 	                                     
+
+	//Destruktor
 	~Node();
 
-	//Funkcje umozliwiajace dostep do atrybutow. Dostep tylko do odczytu!
-	const std::string GetMessage() const;   //const &
-	const int GetKey() const;
+	//Metody umozliwiajace dostep do atrybutow. Dostep tylko do odczytu!
+	const std::string& GetMessage() const;
+	const int& GetKey() const;
 	Node* GetNext() const;
 	Node* GetPrevious() const;
 
-	//Funkcje umozliwiajace zmiane atrybutow.
-	void SetKey(int _key);
+	//Metody umozliwiajace zmiane atrybutow.
 	void SetNext(Node* newNode);
-
 	void SetPrevious(Node* newNode);
-
-	void SwapKeys(Node* _node);
-
 
 }; //CLASS
 

@@ -1,7 +1,6 @@
-#include "../Headers/Node.h"
 #include "../Headers/List.h"
 
-
+//Konstruktor glowny inicjuje poczatek i koniec tablicy oraz polaczenie miedzy nimi.
 template <typename T>
 List<T>::List()
 {
@@ -11,7 +10,7 @@ List<T>::List()
 }
 
 template <typename T>
-const bool List<T>::IsEmpty() const              //bool&
+const bool& List<T>::IsEmpty() const
 {
 	if (header->GetNext() == trailer)
 	{
@@ -21,13 +20,13 @@ const bool List<T>::IsEmpty() const              //bool&
 }
 
 template <typename T>
-const int List<T>::Size() const
+const int& List<T>::Size() const
 {
 	if (IsEmpty()) return 0;
 	else
 	{
 		int size = 0;
-		T* head = header->GetNext();    //nie liczymy header'a, jesli IsEmpty != true to header->GetNext() istnieje
+		T* head = header->GetNext();			//Nie liczymy header'a, jesli IsEmpty != true to header->GetNext() istnieje.
 		while (head != trailer)
 		{
 			size++;
@@ -37,26 +36,61 @@ const int List<T>::Size() const
 	}
 }
 
+
+template <typename T>
+T* List<T>::AtIndex(const int& _key) const
+{
+	if (IsEmpty() || _key <= 0)	throw "Index musi istniec";   //Aby zapobiec probie dostepu do nieobslugiwanej pamieci uzyto wyjatku
+	else
+	{
+		T* head = header->GetNext();						  //Nie liczymy header'a, jesli IsEmpty != true to header->GetNext() istnieje.
+		for (int i = 0; i < Size(); i++)
+		{
+			if (head->GetKey() == _key) return head;
+			else head = head->GetNext();
+		}
+		std::cout << "Funkcja \"AtIndex\":Nie ma takiego indexu: " << std::endl;  //W przypadku braku wybranego indeksu odsylany jest nullptr.
+		return nullptr;
+	}
+}
+
+template <typename T>
+const int& List<T> ::IndexOf(const std::string& mess) const
+{
+	if (IsEmpty()) return 0;
+	else
+	{
+		T* head = header->GetNext();		 //Nie liczymy header'a, jesli IsEmpty != true to header->GetNext() istnieje.
+		for (int i = 0; i < Size(); i++)
+		{
+			if (mess == head->GetMessage()) return head->GetKey();
+			else head = head->GetNext();
+		}
+		return 0;							//Jesli nie ma wybranej frazy lub lista jest pusta program odsyla indeks zerowy.
+	}
+}
+
+//Metoda pozwala na symulacje odbioru wiadomosci.
 template<typename T>
 void List<T>::ReceiveMessage(List _lista)
 {
 	if (_lista.IsEmpty()) std::cout << "Funkcja \"ReceiveMessage\": Lista jest pusta" << std::endl;
 	else
 	{
-		const T* head = _lista.GetHeader();
-		for (int i = (_lista.GetHeader()->GetNext()->GetKey()); i <= _lista.Max(); i++)
+		for (T* i = _lista.First(); i != _lista.Last(); i = i->GetNext())   //Petla z iteratorem przyjmujacym postac wezla.
 		{
-			Insert(_lista.AtIndex(i));
-			head = head->GetNext();
+			Insert(i);								//Metoda zarowno dodaje jak i segreguje elementy, wiec przedstawiona metoda przesyla posegregowana wiadomosc
 		}
+		Insert(_lista.Last());      //Petla nie dodaje ostatniego elementu.
+
 	}
 }
 
 template <typename T>
 void List<T>::AddAtEnd(std::string mess)
 {
-	T* newNode = new T(mess, (trailer->GetPrevious()->GetKey() + 1), trailer->GetPrevious(), trailer);
-	trailer->GetPrevious()->SetNext(newNode);
+	T* newNode = new T(mess, (trailer->GetPrevious()->GetKey() + 1), trailer->GetPrevious(), trailer); //Uzycie konstruktora optymalizuje kod.
+	trailer->GetPrevious()->SetNext(newNode);             //Ustawienie wszystkich polaczen niezbednych do wzajemnego funkcjonowania elementow.
 	trailer->SetPrevious(newNode);
 }
 
@@ -78,7 +112,7 @@ void List<T>::AddAfter(T* afterMe, T* _node)
 		afterMe->GetNext()->SetPrevious(newNode);
 		afterMe->SetNext(newNode);
 	}
-	else throw "Nale¿y podaæ inne parametry ni¿ nulltr";
+	else std::cout<< "Funkcja \"AddAfter\": Nale¿y podaæ element poprzeczajacy ni¿ nulltr";
 }
 
 template<typename T>
@@ -86,31 +120,28 @@ void List<T>::Remove(T* _node)
 {
 	if (_node != nullptr && _node != header && _node != trailer)
 	{
-		_node->GetNext()->SetPrevious(_node->GetPrevious());
+		_node->GetNext()->SetPrevious(_node->GetPrevious());	 //Aby nie doszlo do wyciekow pamieci ustalane sa nowe wezly.
 		_node->GetPrevious()->SetNext(_node->GetNext());
-		delete _node;
+		delete _node;                                            //Zwolnienie pamieci komputera.
 	}
-	else std::cout << "Funkcja \"Remove\": Nie mozna usunac nullptr, header ani trailer" << std::endl;
+	else std::cout << "Funkcja \"Remove\": Nie mozna usunac nullptr, header ani trailer" << std::endl; //Informacja o nieprawidlowych dzialaniach
 }
 
+//Metoda dodaje element na pozycji uzaleznionej od posiadanego klucza. Klucze w liscie ustawione sa od najmniejszego na pocz¹tku do najwiekszego na koncu.
 template<typename T>
 void List<T>::Insert(T* _node)
 {
 	if (IsEmpty()) AddAfter(header, _node);
 	else
 	{
-		Node* head = header->GetNext(); //nie liczymy header'a, jesli IsEmpty != true to header->GetNext() istnieje
-		Node* index = head;
+		Node* head = header;
+		Node* index = head;             //Zmienna pomocnicza przyjmujaca posatac najwiekszego indeksu
 		for (int i = 0; i < Size(); i++)
 		{
-
-			if (_node->GetKey() >= head->GetKey()) index = head;
-
-			if (head->GetKey() != 0) head = head->GetNext();
-
-
+			head = head->GetNext();                              //Nie liczymy header'a, jesli IsEmpty != true to header->GetNext() istnieje.
+			if (_node->GetKey() >= head->GetKey()) index = head;  //W ten sposob _node jest zawsze wiekszy rowny index.
 		}
-		AddAfter(index, _node);
+		AddAfter(index, _node);        //Dodajemy przeslany element zaraz za ustalonym wczesniej elementem index.
 	}
 }
 
@@ -122,7 +153,7 @@ void List<T>::ClearList()
 		Remove(Last());
 	}
 }
-
+//Metoda pomocnicza ulatwiajaca sledzenie atrybutow kazdego z wezlow, zarowno klucza jak i wiadomosci.
 template <typename T>
 void List<T>::PrintList() const
 {
@@ -138,6 +169,7 @@ void List<T>::PrintList() const
 	}
 }
 
+//Metoda pomocnicza drukujaca zawartosc listy jako spojna wiadomosc.
 template <typename T>
 void List<T>::PrintMessage() const
 {
@@ -153,7 +185,7 @@ void List<T>::PrintMessage() const
 		std::cout << std::endl;
 	}
 }
-
+//Metoda pomocnicza wyswietlajaca minimalny indeks znajdujacy sie w liscie.
 template<typename T>
 const int List<T>::Min() const
 {
@@ -164,13 +196,15 @@ const int List<T>::Min() const
 		int min = 1;
 		for (int i = 0; i < Size(); i++)
 		{
-			help = help->GetNext();                        //Nastepujaca kolejnosc by pominac header
+			help = help->GetNext();
 			if (min > help->GetKey()) min = help->GetKey();
 		}
+
 		return min;
 	}
 }
 
+//Metoda pomocnicza wyswietlajaca maksymalny indeks znajdujacy sie w liscie.
 template<typename T>
 const int List<T>::Max() const
 {
@@ -181,46 +215,13 @@ const int List<T>::Max() const
 		int max = 1;
 		for (int i = 0; i < Size(); i++)
 		{
-			help = help->GetNext();                        //Nastepujaca kolejnosc by pominac header
+			help = help->GetNext();
 			if (max < help->GetKey()) max = help->GetKey();
 		}
 		return max;
 	}
 }
 
-template <typename T>
-T* List<T>::AtIndex(int _key) const
-{
-	if (IsEmpty() || _key < 0)	throw "Index musi istniec";
-	else
-	{
-		T* head = header->GetNext();
-		for (int i = 0; i < Size(); i++)
-		{
-			if (head->GetKey() == _key) return head;
-			else head = head->GetNext();
-		}
-
-		std::cout << "Funkcja \"AtIndex\":Nie ma takiego indexu" << std::endl;
-		return nullptr;
-	}
-}
-
-template <typename T>
-const int List<T> ::IndexOf(const std::string mess) const
-{
-	if (IsEmpty()) return 0;
-	else
-	{
-		T* head = header->GetNext();
-		for (int i = 0; i < Size(); i++)
-		{
-			if (mess == head->GetMessage()) return head->GetKey();
-			else head = head->GetNext();
-		}
-		return 0;
-	}
-}
-
+//Przykladowy szablon wezla dwukierunkowego uzyty w projektcie
 template
 class List<Node>;

@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include "../Headers/List.h"
+
 using namespace std;
 
 int main()
@@ -9,7 +10,10 @@ int main()
 	List<Node> ListaOdbiorcza;
 	string s;
 	string p;
-	char choice = 'm';
+	char choice = 'm';   //przypisanie zmiennej wartosci 'm' pozwala na wyswietlenie menu w pierwszej kolejnosci.
+
+	ListaOdbiorcza.ReceiveMessage(Lista);
+	ListaOdbiorcza.PrintList();
 
 	while (choice != 'k')
 	{
@@ -20,7 +24,7 @@ int main()
 			cout << "Menu wyboru: " << endl;
 			cout << "Wybierz \'m\' aby zobaczyc menu" << endl;
 			cout << "Wybierz \'n\' aby napisac wiadomosc" << endl;
-			cout << "Wybierz \'w\' aby wyslac wiadomosc" << endl;
+			cout << "Wybierz \'w\' aby wyslac wiadomosc (Uwaga: usuwa wczesniej napisane wiadomosci)" << endl;
 			cout << "Wybierz \'d\' aby wydrukowac sekwencje wiadomosci" << endl;
 			cout << "Wybierz \'u\' aby usunac wybrana wiadomosc" << endl;
 			cout << "Wybierz \'e\' aby edytowac wiadomosc" << endl;
@@ -31,19 +35,15 @@ int main()
 
 		case 'n':
 		{
-			if (cin.peek() == '\n')
-			{
-				cin.ignore();
-			}
 			do
 			{
-				cin >> s;
-				ListaTymczasowa.AddAtEnd(s);
-				Lista.Insert(ListaTymczasowa.Last());
-				ListaTymczasowa.AddAtEnd(" ");
+				cin >> s;      
+				ListaTymczasowa.AddAtEnd(s);   //Pomocnicza lista zapamietujaca kolejność kluczy wiadomosci nawet po ich wyslaniu (wysylanie usuwa elementy listy "Lista")
+				Lista.Insert(ListaTymczasowa.Last());           
+				ListaTymczasowa.AddAtEnd(" ");        //cin>> ignoruje znak spacji, wiec trzeba go dodac osobno. 
 				Lista.Insert(ListaTymczasowa.Last());
 
-			} while (cin.peek() != '\n');
+			} while (cin.peek() != '\n');              //Potwierdzenie napisania wiadomosci znakiem nowej lini.
 			cout << "Wiadomosc zapisana pomyslnie" << endl;
 		}
 		break;
@@ -61,7 +61,7 @@ int main()
 			ListaOdbiorcza.ReceiveMessage(Lista);
 			cout << "Wyslano: ";
 			ListaOdbiorcza.PrintMessage();
-			Lista.ClearList();
+			Lista.ClearList();            //Wyczyszczenie wiadomosci wyslanych.
 		}
 		break;
 
@@ -81,16 +81,16 @@ int main()
 				cout << "Ktora wiadomosc usunac lub wpisz 0 aby wrocic do menu: " << endl;
 				Lista.PrintList();
 				cin >> index;
-				if (!cin.good())
+				if (!cin.good())										//Indeks musi istniec
 				{
 					cout << "Nie udalo sie usunac widomosci" << endl;
 					cin.clear();
-					cin.ignore();
+					cin.ignore(10000, '\n');
 				}
-				else if (index == 0) cout << "Powrot do menu" << endl;
+				else if (index == 0) cout << "Powrot do menu" << endl;  //Mozliwosc wyjscia z aktualnego trybu
 				else
 				{
-					if (Lista.AtIndex(index) != nullptr)
+					if (Lista.AtIndex(index) != nullptr)				//Indeks musi istniec
 					{
 						cout << "Wiadomosc usunieta pomyslnie" << endl;
 						Lista.Remove(Lista.AtIndex(index));
@@ -110,17 +110,17 @@ int main()
 				cout << "Wybierz ktora wiadomosc edytowac lub wpisz 0 aby wrocic do menu: " << endl;
 				Lista.PrintList();
 				cin >> index;
-				if (!cin.good())
+				if (!cin.good())										//Indeks musi istniec
 				{
 					cout << "Nie udalo sie edytowac widomosci" << endl;
 					cin.clear();
-					cin.ignore();
+					cin.ignore(10000, '\n');	
 				}
-				else if (index == 0) cout << "Powrot do menu" << endl;
+				else if (index == 0) cout << "Powrot do menu" << endl;  //Mozliwosc wyjscia z aktualnego trybu
 				else
 				{
 					string _editnode;
-					if (Lista.AtIndex(index) != nullptr)
+					if (Lista.AtIndex(index) != nullptr)				//Indeks musi istniec
 					{
 						cout << "Edytuj wiadomosc: \"" << Lista.AtIndex(index)->GetMessage() << "\"" << endl;
 						cin >> _editnode;
@@ -137,11 +137,11 @@ int main()
 		default:
 		{
 			cout << "Niepoprawne polecenie" << endl;
-			cin.ignore(10000, '\n');
+			cin.ignore(10000, '\n');                 //Pozwala na ignorowanie losowo wpisanych liter.
 		}
 		break;
 		}
-		cin >> choice;
+		cin >> choice;      //Wybor opcji.s
 	}
 	return 0;
 }//MAIN
